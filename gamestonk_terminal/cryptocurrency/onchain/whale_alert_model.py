@@ -1,9 +1,10 @@
 """Whale Alert model"""
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 from typing import Optional
 import textwrap
-import requests
 import pandas as pd
 import numpy as np
 import gamestonk_terminal.config_terminal as cfg
@@ -46,7 +47,7 @@ def make_request(params: Optional[dict] = None) -> dict:
 
     api_key = cfg.API_WHALE_ALERT_KEY or ""
     url = "https://api.whale-alert.io/v1/transactions?api_key=" + api_key
-    response = requests.get(url, params=params)
+    response = safe_requests.get(url, params=params)
 
     if not 200 <= response.status_code < 300:
         raise ApiKeyException(f"Invalid Authentication: {response.text}")

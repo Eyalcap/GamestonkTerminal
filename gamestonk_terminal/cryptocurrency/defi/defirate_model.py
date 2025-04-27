@@ -1,7 +1,7 @@
 """DeFi Rate model"""
-__docformat__ = "numpy"
+from security import safe_requests
 
-import requests
+__docformat__ = "numpy"
 from bs4 import BeautifulSoup
 from bs4.element import Tag
 import pandas as pd
@@ -30,7 +30,7 @@ def _scrape_defirate(url: str, current: bool = True) -> Tag:
     }
 
     div_class = current_or_average_map[current]
-    req = requests.get(url)
+    req = safe_requests.get(url)
     soup = BeautifulSoup(req.text, features="lxml")
     table = soup.find("div", class_=div_class).find("table")
     return table

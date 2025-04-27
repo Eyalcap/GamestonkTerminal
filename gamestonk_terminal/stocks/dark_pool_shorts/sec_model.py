@@ -1,8 +1,9 @@
 """ SEC Model """
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 from datetime import datetime
-import requests
 import pandas as pd
 from bs4 import BeautifulSoup
 from gamestonk_terminal.helper_funcs import get_user_agent
@@ -33,7 +34,7 @@ def get_fails_to_deliver(
     if num > 0:
         url_ftds = "https://www.sec.gov/data/foiadocsfailsdatahtm"
         text_soup_ftds = BeautifulSoup(
-            requests.get(url_ftds, headers={"User-Agent": get_user_agent()}).text,
+            safe_requests.get(url_ftds, headers={"User-Agent": get_user_agent()}).text,
             "lxml",
         )
 

@@ -1,7 +1,7 @@
 """Finbrain model"""
-__docformat__ = "numpy"
+from security import safe_requests
 
-import requests
+__docformat__ = "numpy"
 
 
 def get_technical_summary_report(ticker: str) -> str:
@@ -17,7 +17,7 @@ def get_technical_summary_report(ticker: str) -> str:
     report:str
         technical summary report
     """
-    result = requests.get(f"https://api.finbrain.tech/v0/technicalSummary/{ticker}")
+    result = safe_requests.get(f"https://api.finbrain.tech/v0/technicalSummary/{ticker}")
     report = ""
     if result.status_code == 200:
         if "technicalSummary" in result.json():

@@ -1,8 +1,9 @@
 """ nftcalendar.io Model """
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 from gamestonk_terminal.helper_funcs import get_user_agent
 
@@ -21,7 +22,7 @@ def get_nft_drops(url: str) -> pd.DataFrame:
         NFT drops
     """
     nft_calendar = BeautifulSoup(
-        requests.get(
+        safe_requests.get(
             url,
             headers={"User-Agent": get_user_agent()},
         ).text,

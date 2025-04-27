@@ -1,10 +1,11 @@
 """ Comparison Analysis Marketwatch Model """
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 from typing import Dict, List, Tuple
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 
 from gamestonk_terminal.helper_funcs import get_user_agent
@@ -100,7 +101,7 @@ def prepare_df_financials(
 
     period = "quarter" if quarter else "annual"
     text_soup_financials = BeautifulSoup(
-        requests.get(
+        safe_requests.get(
             financial_urls[statement][period].format(ticker),
             headers={"User-Agent": get_user_agent()},
         ).text,

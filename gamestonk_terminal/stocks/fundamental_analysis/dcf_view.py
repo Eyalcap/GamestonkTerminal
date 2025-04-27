@@ -1,4 +1,6 @@
 """ DCF View """
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 from typing import List, Union
@@ -16,7 +18,6 @@ import regex as re
 import yfinance as yf
 import pandas as pd
 import numpy as np
-import requests
 
 from gamestonk_terminal.stocks.fundamental_analysis import dcf_model
 from gamestonk_terminal.helper_funcs import get_rf
@@ -108,7 +109,7 @@ class CreateExcelFA:
             title = "Income Statement"
             ignores = dcf_model.non_gaap_is
 
-        r = requests.get(URL, headers=dcf_model.headers)
+        r = safe_requests.get(URL, headers=dcf_model.headers)
 
         if "404 - Page Not Found" in r.text:
             raise ValueError("The ticker given is not in the stock analysis website.")
@@ -1291,7 +1292,7 @@ class CreateExcelFA:
         if statement == "IS":
             ignores = dcf_model.non_gaap_is
 
-        r = requests.get(URL, headers=dcf_model.headers)
+        r = safe_requests.get(URL, headers=dcf_model.headers)
 
         if "404 - Page Not Found" in r.text:
             # TODO: add better handling

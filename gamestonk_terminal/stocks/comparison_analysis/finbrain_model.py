@@ -1,9 +1,10 @@
 """ Comparison Analysis FinBrain Model """
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 from typing import List
 import pandas as pd
-import requests
 
 
 def get_sentiments(tickers: List[str]) -> pd.DataFrame:
@@ -24,7 +25,7 @@ def get_sentiments(tickers: List[str]) -> pd.DataFrame:
     dates_sentiment = []
     tickers_to_remove = list()
     for ticker in tickers:
-        result = requests.get(f"https://api.finbrain.tech/v0/sentiments/{ticker}")
+        result = safe_requests.get(f"https://api.finbrain.tech/v0/sentiments/{ticker}")
         if result.status_code == 200:
             if "ticker" in result.json() and "sentimentAnalysis" in result.json():
                 df_sentiment[ticker] = [

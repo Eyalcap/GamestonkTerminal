@@ -2,10 +2,10 @@
 import json
 from datetime import datetime
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 
 from gamestonk_terminal.helper_funcs import get_user_agent
+from security import safe_requests
 
 DAYS = [30, 90, 365]
 
@@ -33,7 +33,7 @@ def get_altcoin_index(period: int, since: int, until: int) -> pd.DataFrame:
     if period not in DAYS:
         return pd.DataFrame()
     soup = BeautifulSoup(
-        requests.get(
+        safe_requests.get(
             "https://www.blockchaincenter.net/altcoin-season-index/",
             headers={"User-Agent": get_user_agent()},
         ).content,

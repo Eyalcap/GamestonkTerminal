@@ -1,8 +1,9 @@
 """AlphaQuery Model"""
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 from datetime import datetime, timedelta
-import requests
 import pandas as pd
 
 
@@ -29,7 +30,7 @@ def get_put_call_ratio(
             Chrome/70.0.3538.77 Safari/537.36"
     }
 
-    r = requests.get(url, headers=headers)
+    r = safe_requests.get(url, headers=headers)
     if r.status_code != 200:
         return pd.DataFrame()
 

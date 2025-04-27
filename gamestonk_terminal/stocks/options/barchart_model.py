@@ -1,8 +1,9 @@
 """Barchart Model"""
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 from gamestonk_terminal.helper_funcs import get_user_agent
 
@@ -22,7 +23,7 @@ def get_options_info(ticker: str) -> pd.DataFrame:
     """
     page = f"https://www.barchart.com/stocks/quotes/{ticker}/overview"
 
-    r = requests.get(page, headers={"User-Agent": get_user_agent()})
+    r = safe_requests.get(page, headers={"User-Agent": get_user_agent()})
     soup = BeautifulSoup(r.text, "html.parser")
     tags = soup.find(
         "div",

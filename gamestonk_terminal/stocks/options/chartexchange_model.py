@@ -1,7 +1,7 @@
 """Chartexchange model"""
-__docformat__ = "numpy"
+from security import safe_requests
 
-import requests
+__docformat__ = "numpy"
 import pandas as pd
 from bs4 import BeautifulSoup
 
@@ -33,7 +33,7 @@ def get_option_history(ticker: str, date: str, call: bool, price: str) -> pd.Dat
     )
     url += f"{'c' if call else 'p'}{float(price):g}/historical/"
 
-    data = requests.get(url, headers={"User-Agent": get_user_agent()}).content
+    data = safe_requests.get(url, headers={"User-Agent": get_user_agent()}).content
     soup = BeautifulSoup(data, "html.parser")
     table = soup.find("div", attrs={"style": "display: table; font-size: 0.9em; "})
     rows = table.find_all("div", attrs={"style": "display: table-row;"})

@@ -1,9 +1,9 @@
 "Polygon Model"
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 from typing import List, Tuple
-
-import requests
 from gamestonk_terminal import config_terminal as cfg
 
 
@@ -22,7 +22,7 @@ def get_similar_companies(ticker: str, us_only: bool) -> Tuple[List[str], str]:
     str :
         String indicating data source
     """
-    result = requests.get(
+    result = safe_requests.get(
         f"https://api.polygon.io/v1/meta/symbols/{ticker.upper()}/company?&apiKey={cfg.API_POLYGON_KEY}"
     )
 
@@ -34,7 +34,7 @@ def get_similar_companies(ticker: str, us_only: bool) -> Tuple[List[str], str]:
             mkw_link = "https://www.marketwatch.com/investing/stock/"
             for sym in similar:
                 prep_link = mkw_link + sym
-                sent_req = requests.get(prep_link)
+                sent_req = safe_requests.get(prep_link)
                 if prep_link == sent_req.request.url:
                     us_similar.append(sym)
                 similar = us_similar

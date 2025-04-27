@@ -1,4 +1,6 @@
 """Ethplorer model"""
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 import textwrap
@@ -7,7 +9,6 @@ from datetime import datetime
 from typing import Any, Optional
 from time import sleep
 import pandas as pd
-import requests
 from gamestonk_terminal.cryptocurrency.dataframe_helpers import create_df_index
 import gamestonk_terminal.config_terminal as cfg
 
@@ -143,7 +144,7 @@ def make_request(endpoint: str, address: Optional[str] = None, **kwargs: Any) ->
         url += f"&limit={kwargs['limit']}"
 
     sleep(0.5)  # Limit is 2 API calls per 1 sec.
-    response = requests.get(url).json()
+    response = safe_requests.get(url).json()
     if "error" in response:
         raise Exception(
             f"Error: {response['error']['code']}. Message: {response['error']['message']}\n",
