@@ -802,8 +802,8 @@ def key_metrics_explained(other_args: List[str]):
     if ns_parser:
         filepath = "fundamental_analysis/key_metrics_explained.txt"
         with open(filepath) as fp:
-            line = fp.readline()
+            line = fp.readline(5_000_000)
             while line:
                 print(f"{line.strip()}")
-                line = fp.readline()
+                line = fp.readline(5_000_000)
             print("")
