@@ -22,8 +22,8 @@ def get_low_float() -> DataFrame:
 
     text_soup_low_float_stocks = BeautifulSoup(
         requests.get(
-            url_high_short_interested_stocks, headers={"User-Agent": get_user_agent()}
-        ).text,
+            url_high_short_interested_stocks, headers={"User-Agent": get_user_agent()}, 
+        timeout=60).text,
         "lxml",
     )
 
@@ -69,7 +69,7 @@ def get_today_hot_penny_stocks() -> DataFrame:
         requests.get(
             url_penny_stock_stocks,
             headers={"User-Agent": get_user_agent()},
-        ).text,
+        timeout=60).text,
         "lxml",
     )
 

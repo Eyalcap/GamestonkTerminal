@@ -30,7 +30,7 @@ def _scrape_defirate(url: str, current: bool = True) -> Tag:
     }
 
     div_class = current_or_average_map[current]
-    req = requests.get(url)
+    req = requests.get(url, timeout=60)
     soup = BeautifulSoup(req.text, features="lxml")
     table = soup.find("div", class_=div_class).find("table")
     return table

@@ -15,6 +15,6 @@ def get_most_shorted() -> pd.DataFrame:
     """
     url = "https://finance.yahoo.com/screener/predefined/most_shorted_stocks"
 
-    data = pd.read_html(requests.get(url).text)[0]
+    data = pd.read_html(requests.get(url, timeout=60).text)[0]
     data = data.iloc[:, :-1]
     return data

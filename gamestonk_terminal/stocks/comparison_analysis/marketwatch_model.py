@@ -103,7 +103,7 @@ def prepare_df_financials(
         requests.get(
             financial_urls[statement][period].format(ticker),
             headers={"User-Agent": get_user_agent()},
-        ).text,
+        timeout=60).text,
         "lxml",
     )
 

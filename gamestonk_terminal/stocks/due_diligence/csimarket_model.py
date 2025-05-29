@@ -23,7 +23,7 @@ def get_suppliers(ticker: str) -> str:
     url_supply_chain = (
         f"https://csimarket.com/stocks/competitionNO3.php?supply&code={ticker.upper()}"
     )
-    text_supplier_chain = BeautifulSoup(requests.get(url_supply_chain).text, "lxml")
+    text_supplier_chain = BeautifulSoup(requests.get(url_supply_chain, timeout=60).text, "lxml")
 
     l_supplier = list()
     for supplier in text_supplier_chain.findAll(
@@ -54,7 +54,7 @@ def get_customers(ticker: str) -> str:
     url_customer_chain = (
         f"https://csimarket.com/stocks/custexNO.php?markets&code={ticker.upper()}"
     )
-    text_customer_chain = BeautifulSoup(requests.get(url_customer_chain).text, "lxml")
+    text_customer_chain = BeautifulSoup(requests.get(url_customer_chain, timeout=60).text, "lxml")
 
     l_customer = list()
     for customer in text_customer_chain.findAll("td", {"class": "plava svjetlirub"}):

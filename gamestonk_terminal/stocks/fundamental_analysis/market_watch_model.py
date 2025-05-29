@@ -66,7 +66,7 @@ def prepare_df_financials(
         requests.get(
             financial_urls[statement][period].format(ticker),
             headers={"User-Agent": get_user_agent()},
-        ).text,
+        timeout=60).text,
         "lxml",
     )
 
@@ -146,7 +146,7 @@ def get_sean_seah_warnings(
         f"https://www.marketwatch.com/investing/stock/{ticker}/financials/income"
     )
     text_soup_financials = BeautifulSoup(
-        requests.get(url_financials, headers={"User-Agent": get_user_agent()}).text,
+        requests.get(url_financials, headers={"User-Agent": get_user_agent()}, timeout=60).text,
         "lxml",
     )
 
@@ -192,7 +192,7 @@ def get_sean_seah_warnings(
         f"https://www.marketwatch.com/investing/stock/{ticker}/financials/balance-sheet"
     )
     text_soup_financials = BeautifulSoup(
-        requests.get(url_financials, headers={"User-Agent": get_user_agent()}).text,
+        requests.get(url_financials, headers={"User-Agent": get_user_agent()}, timeout=60).text,
         "lxml",
     )
 

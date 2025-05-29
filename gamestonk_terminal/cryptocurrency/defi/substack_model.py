@@ -24,7 +24,7 @@ def scrape_substack(url: str) -> list:
         list of news from given newsletter
     """
 
-    req = requests.get(url)
+    req = requests.get(url, timeout=60)
     soup = BeautifulSoup(req.text, features="lxml")
     results = []
     posts = soup.find("div", class_="portable-archive-list").find_all(

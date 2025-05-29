@@ -24,7 +24,7 @@ def get_sentiments(tickers: List[str]) -> pd.DataFrame:
     dates_sentiment = []
     tickers_to_remove = list()
     for ticker in tickers:
-        result = requests.get(f"https://api.finbrain.tech/v0/sentiments/{ticker}")
+        result = requests.get(f"https://api.finbrain.tech/v0/sentiments/{ticker}", timeout=60)
         if result.status_code == 200:
             if "ticker" in result.json() and "sentimentAnalysis" in result.json():
                 df_sentiment[ticker] = [

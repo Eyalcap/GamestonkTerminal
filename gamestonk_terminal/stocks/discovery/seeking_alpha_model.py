@@ -24,8 +24,8 @@ def get_earnings_html(url_next_earnings: str) -> str:
         HTML page of next earnings
     """
     earnings_html = requests.get(
-        url_next_earnings, headers={"User-Agent": get_user_agent()}
-    ).text
+        url_next_earnings, headers={"User-Agent": get_user_agent()}, 
+    timeout=60).text
 
     return earnings_html
 
@@ -83,8 +83,8 @@ def get_articles_html(url_articles: str) -> str:
         HTML page of articles
     """
     articles_html = requests.get(
-        url_articles, headers={"User-Agent": get_user_agent()}
-    ).text
+        url_articles, headers={"User-Agent": get_user_agent()}, 
+    timeout=60).text
 
     return articles_html
 
@@ -105,7 +105,7 @@ def get_trending_list(num: int) -> list:
 
     articles = []
     url_articles = "https://seekingalpha.com/news/trending_news"
-    response = requests.get(url_articles, headers={"User-Agent": get_user_agent()})
+    response = requests.get(url_articles, headers={"User-Agent": get_user_agent()}, timeout=60)
 
     # Check that the API response was successful
     if response.status_code != 200:
@@ -143,7 +143,7 @@ def get_article_data(article_id: int) -> dict:
     """
 
     article_url = f"https://seekingalpha.com/api/v3/news/{article_id}"
-    response = requests.get(article_url, headers={"User-Agent": get_user_agent()})
+    response = requests.get(article_url, headers={"User-Agent": get_user_agent()}, timeout=60)
     jdata = response.json()
     content = jdata["data"]["attributes"]["content"].replace("</li>", "</li>\n")
     content = BeautifulSoup(content, features="html.parser").get_text()
@@ -179,8 +179,8 @@ def get_news_html(news_type: str = "Top-News") -> dict:
     )
 
     articles_html = requests.get(
-        sa_url, headers={"User-Agent": get_user_agent()}
-    ).json()
+        sa_url, headers={"User-Agent": get_user_agent()}, 
+    timeout=60).json()
 
     return articles_html
 

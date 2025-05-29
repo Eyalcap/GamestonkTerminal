@@ -30,7 +30,7 @@ def get_sec_filings(ticker: str) -> pd.DataFrame:
     )
 
     text_soup_financials = BeautifulSoup(
-        requests.get(url_financials, headers={"User-Agent": get_user_agent()}).text,
+        requests.get(url_financials, headers={"User-Agent": get_user_agent()}, timeout=60).text,
         "lxml",
     )
 

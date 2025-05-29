@@ -20,8 +20,8 @@ def get_rating_over_time(ticker: str) -> pd.DataFrame:
         Get dataframe with ratings
     """
     response = requests.get(
-        f"https://finnhub.io/api/v1/stock/recommendation?symbol={ticker}&token={cfg.API_FINNHUB_KEY}"
-    )
+        f"https://finnhub.io/api/v1/stock/recommendation?symbol={ticker}&token={cfg.API_FINNHUB_KEY}", 
+    timeout=60)
     if response.status_code == 200:
         return pd.DataFrame(response.json())
 

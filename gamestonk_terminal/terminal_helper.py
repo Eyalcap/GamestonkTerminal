@@ -50,8 +50,8 @@ def check_api_keys():
         key_dict["FINANCIAL_MODELING_PREP"] = "Not defined"
     else:
         r = requests.get(
-            f"https://financialmodelingprep.com/api/v3/profile/AAPL?apikey={cfg.API_KEY_FINANCIALMODELINGPREP}"
-        )
+            f"https://financialmodelingprep.com/api/v3/profile/AAPL?apikey={cfg.API_KEY_FINANCIALMODELINGPREP}", 
+        timeout=60)
         if r.status_code in [403, 401]:
             key_dict["FINANCIAL_MODELING_PREP"] = "defined, test failed"
         elif r.status_code == 200:
@@ -79,8 +79,8 @@ def check_api_keys():
         key_dict["POLYGON"] = "Not defined"
     else:
         r = requests.get(
-            f"https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/2020-06-01/2020-06-17?apiKey={cfg.API_POLYGON_KEY}"
-        )
+            f"https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/2020-06-01/2020-06-17?apiKey={cfg.API_POLYGON_KEY}", 
+        timeout=60)
         if r.status_code in [403, 401]:
             key_dict["POLYGON"] = "defined, test failed"
         elif r.status_code == 200:
@@ -92,8 +92,8 @@ def check_api_keys():
         key_dict["FRED"] = "Not defined"
     else:
         r = requests.get(
-            f"https://api.stlouisfed.org/fred/series?series_id=GNPCA&api_key={cfg.API_FRED_KEY}"
-        )
+            f"https://api.stlouisfed.org/fred/series?series_id=GNPCA&api_key={cfg.API_FRED_KEY}", 
+        timeout=60)
         if r.status_code in [403, 401, 400]:
             key_dict["FRED"] = "defined, test failed"
         elif r.status_code == 200:
@@ -105,8 +105,8 @@ def check_api_keys():
         key_dict["NEWSAPI"] = "Not defined"
     else:
         r = requests.get(
-            f"https://newsapi.org/v2/everything?q=keyword&apiKey={cfg.API_NEWS_TOKEN}"
-        )
+            f"https://newsapi.org/v2/everything?q=keyword&apiKey={cfg.API_NEWS_TOKEN}", 
+        timeout=60)
         if r.status_code in [401, 403]:
             key_dict["NEWSAPI"] = "defined, test failed"
         elif r.status_code == 200:
@@ -124,7 +124,7 @@ def check_api_keys():
                 "Authorization": f"Bearer {cfg.TRADIER_TOKEN}",
                 "Accept": "application/json",
             },
-        )
+        timeout=60)
         if r.status_code in [401, 403]:
             key_dict["TRADIER"] = "defined, test failed"
         elif r.status_code == 200:
@@ -146,8 +146,8 @@ def check_api_keys():
         key_dict["FINNHUB"] = "Not defined"
     else:
         r = r = requests.get(
-            f"https://finnhub.io/api/v1/quote?symbol=AAPL&token={cfg.API_FINNHUB_KEY}"
-        )
+            f"https://finnhub.io/api/v1/quote?symbol=AAPL&token={cfg.API_FINNHUB_KEY}", 
+        timeout=60)
         if r.status_code in [403, 401, 400]:
             key_dict["FINNHUB"] = "defined, test failed"
         elif r.status_code == 200:
@@ -207,7 +207,7 @@ def check_api_keys():
             "https://api.twitter.com/2/tweets/search/recent",
             params=params,  # type: ignore
             headers={"authorization": "Bearer " + cfg.API_TWITTER_BEARER_TOKEN},
-        )
+        timeout=60)
         if r.status_code == 200:
             key_dict["TWITTER"] = "defined, test passed"
         elif r.status_code in [401, 403]:
@@ -254,8 +254,8 @@ def check_api_keys():
         }}}
         """
         r = requests.post(
-            "https://graphql.bitquery.io", json={"query": query}, headers=headers
-        )
+            "https://graphql.bitquery.io", json={"query": query}, headers=headers, 
+        timeout=60)
         if r.status_code == 200:
             key_dict["BITQUERY"] = "defined, test passed"
         else:
@@ -267,8 +267,8 @@ def check_api_keys():
     else:
         account = requests.get(
             f"https://api.sentimentinvestor.com/v4/account"
-            f"?token={cfg.API_SENTIMENTINVESTOR_TOKEN}&key={cfg.API_SENTIMENTINVESTOR_KEY}"
-        )
+            f"?token={cfg.API_SENTIMENTINVESTOR_TOKEN}&key={cfg.API_SENTIMENTINVESTOR_KEY}", 
+        timeout=60)
         if account.ok and account.json().get("success", False):
             key_dict["SENTIMENT_INVESTOR"] = "Defined, test passed"
         else:

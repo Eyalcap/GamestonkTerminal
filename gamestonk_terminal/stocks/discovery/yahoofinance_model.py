@@ -15,7 +15,7 @@ def get_gainers() -> pd.DataFrame:
     """
     url_gainers = "https://finance.yahoo.com/screener/predefined/day_gainers"
 
-    return pd.read_html(requests.get(url_gainers).text)[0]
+    return pd.read_html(requests.get(url_gainers, timeout=60).text)[0]
 
 
 def get_losers() -> pd.DataFrame:
@@ -28,7 +28,7 @@ def get_losers() -> pd.DataFrame:
     """
     url_losers = "https://finance.yahoo.com/screener/predefined/day_losers"
 
-    return pd.read_html(requests.get(url_losers).text)[0]
+    return pd.read_html(requests.get(url_losers, timeout=60).text)[0]
 
 
 def get_ugs() -> pd.DataFrame:
@@ -41,7 +41,7 @@ def get_ugs() -> pd.DataFrame:
     """
     url = "https://finance.yahoo.com/screener/predefined/undervalued_growth_stocks"
 
-    data = pd.read_html(requests.get(url).text)[0]
+    data = pd.read_html(requests.get(url, timeout=60).text)[0]
     data = data.iloc[:, :-1]
     return data
 
@@ -56,7 +56,7 @@ def get_gtech() -> pd.DataFrame:
     """
     url = "https://finance.yahoo.com/screener/predefined/growth_technology_stocks"
 
-    data = pd.read_html(requests.get(url).text)[0]
+    data = pd.read_html(requests.get(url, timeout=60).text)[0]
     data = data.iloc[:, :-1]
     return data
 
@@ -71,7 +71,7 @@ def get_active() -> pd.DataFrame:
     """
     url = "https://finance.yahoo.com/screener/predefined/most_actives"
 
-    data = pd.read_html(requests.get(url).text)[0]
+    data = pd.read_html(requests.get(url, timeout=60).text)[0]
     return data
 
 
@@ -85,7 +85,7 @@ def get_ulc() -> pd.DataFrame:
     """
     url = "https://finance.yahoo.com/screener/predefined/undervalued_large_caps"
 
-    data = pd.read_html(requests.get(url).text)[0]
+    data = pd.read_html(requests.get(url, timeout=60).text)[0]
     return data
 
 
@@ -99,5 +99,5 @@ def get_asc() -> pd.DataFrame:
     """
     url = "https://finance.yahoo.com/screener/predefined/aggressive_small_caps"
 
-    data = pd.read_html(requests.get(url).text)[0]
+    data = pd.read_html(requests.get(url, timeout=60).text)[0]
     return data

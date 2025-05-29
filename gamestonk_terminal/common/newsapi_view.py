@@ -36,7 +36,7 @@ def news(
     if sources:
         link += f"&domains={sources}"
 
-    response = requests.get(link)
+    response = requests.get(link, timeout=60)
 
     # Check that the API response was successful
     if response.status_code == 426:

@@ -25,7 +25,7 @@ def us_indices() -> pd.DataFrame:
         "22DJIA%20Futures%22%7D%2C%7B%22symbol%22%3A%22FUTURE%2FUS%2F%2FS%26P%20500%20FUTURES%22%2C%22name%22%3A%22S%26P"
         "%20500%20Futures%22%7D%5D%7D&type=mdc_quotes",
         headers={"User-Agent": get_user_agent()},
-    ).json()
+    timeout=60).json()
 
     name, last_price, net_change, percent_change = [], [], [], []
 
@@ -61,7 +61,7 @@ def market_overview() -> pd.DataFrame:
         "F%2FUSDJPY%22%2C%22name%22%3A%22Yen%22%7D%2C%7B%22symbol%22%3A%22CURRENCY%2FUS%2F%2FEURUSD%22%2C%22name%22%3A%"
         "22Euro%22%7D%5D%7D&type=mdc_quotes",
         headers={"User-Agent": get_user_agent()},
-    ).json()
+    timeout=60).json()
     name, last_price, net_change, percent_change = [], [], [], []
 
     for entry in data["data"]["instruments"]:
@@ -97,7 +97,7 @@ def top_commodities() -> pd.DataFrame:
         "C%22name%22%3A%22Corn%20Futures%22%7D%2C%7B%22symbol%22%3A%22FUTURE%2FUS%2F%2FWHEAT%22%2C%22name%22%3A%22Wheat"
         "%20Futures%22%7D%2C%7B%22symbol%22%3A%22INDEX%2FXX%2F%2FBCOM%22%7D%5D%7D&type=mdc_quotes",
         headers={"User-Agent": get_user_agent()},
-    ).json()
+    timeout=60).json()
     name, last_price, net_change, percent_change = [], [], [], []
 
     for entry in data["data"]["instruments"]:
@@ -135,7 +135,7 @@ def us_bonds() -> pd.DataFrame:
         "D%2FBX%2F%2FTMUBMUSD03M%22%2C%22name%22%3A%223-Month%20Bill%22%7D%2C%7B%22symbol%22%3A%22BOND%"
         "2FBX%2F%2FTMUBMUSD01M%22%2C%22name%22%3A%221-Month%20Bill%22%7D%5D%7D&type=mdc_quotes",
         headers={"User-Agent": get_user_agent()},
-    ).json()
+    timeout=60).json()
     name, yield_pct, rate, yld_chng = [], [], [], []
 
     for entry in data["data"]["instruments"]:
@@ -167,7 +167,7 @@ def global_bonds() -> pd.DataFrame:
         "2Australia%2010%20Year%22%7D%2C%7B%22symbol%22%3A%22AMBMKRM-10Y%22%2C%22name%22%3A%22China%2010"
         "%20Year%22%7D%5D%7D&type=mdc_governmentbonds",
         headers={"User-Agent": get_user_agent()},
-    ).json()
+    timeout=60).json()
     name, yield_pct, rate, yld_chng = [], [], [], []
 
     for entry in data["data"]["instruments"]:
@@ -204,7 +204,7 @@ def global_currencies() -> pd.DataFrame:
         "%22INDEX%2FXX%2F%2FBUXX%22%2C%22name%22%3A%22WSJ%20Dollar%20Index%22%7D%2C%7B%22symbol%22%3A%2"
         "2INDEX%2FUS%2F%2FDXY%22%2C%22name%22%3A%22U.S.%20Dollar%20Index%22%7D%5D%7D&type=mdc_quotes",
         headers={"User-Agent": get_user_agent()},
-    ).json()
+    timeout=60).json()
 
     name, last_price, price_change, pct_change = [], [], [], []
     for entry in data["data"]["instruments"]:

@@ -45,7 +45,7 @@ def get_tradingview_recommendation(
 
     if not exchange:
         s_req = f"https://www.alphavantage.co/query?function=OVERVIEW&symbol={ticker}&apikey={cfg.API_KEY_ALPHAVANTAGE}"
-        result = requests.get(s_req, stream=True)
+        result = requests.get(s_req, stream=True, timeout=60)
         exchange = result.json()["Exchange"]
 
     if interval:

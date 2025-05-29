@@ -20,8 +20,8 @@ def get_sentiment_stats(ticker: str) -> Dict:
         Get sentiment stats
     """
     response = requests.get(
-        f"https://finnhub.io/api/v1/news-sentiment?symbol={ticker}&token={cfg.API_FINNHUB_KEY}"
-    )
+        f"https://finnhub.io/api/v1/news-sentiment?symbol={ticker}&token={cfg.API_FINNHUB_KEY}", 
+    timeout=60)
     if response.status_code == 200:
         return response.json()
 

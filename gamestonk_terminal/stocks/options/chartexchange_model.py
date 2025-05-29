@@ -33,7 +33,7 @@ def get_option_history(ticker: str, date: str, call: bool, price: str) -> pd.Dat
     )
     url += f"{'c' if call else 'p'}{float(price):g}/historical/"
 
-    data = requests.get(url, headers={"User-Agent": get_user_agent()}).content
+    data = requests.get(url, headers={"User-Agent": get_user_agent()}, timeout=60).content
     soup = BeautifulSoup(data, "html.parser")
     table = soup.find("div", attrs={"style": "display: table; font-size: 0.9em; "})
     rows = table.find_all("div", attrs={"style": "display: table-row;"})

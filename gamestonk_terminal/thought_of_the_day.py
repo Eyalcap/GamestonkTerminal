@@ -55,7 +55,7 @@ class ThoughtOfTheDay:
             requests.get(
                 self.urls[author],
                 headers={"User-Agent": get_user_agent()},
-            ).text,
+            timeout=60).text,
             "lxml",
         )
 

@@ -8,8 +8,8 @@ from gamestonk_terminal import config_terminal as cfg
 
 def get_similar_companies(ticker: str) -> Tuple[List[str], str]:
     result = requests.get(
-        f"https://finnhub.io/api/v1/stock/peers?symbol={ticker}&token={cfg.API_FINNHUB_KEY}"
-    )
+        f"https://finnhub.io/api/v1/stock/peers?symbol={ticker}&token={cfg.API_FINNHUB_KEY}", 
+    timeout=60)
 
     if result.status_code == 200:
         similar = result.json()

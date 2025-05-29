@@ -57,8 +57,8 @@ def get_btc_price() -> float:
         "https://api.coingecko.com/api/v3/simple/"
         "price?ids=bitcoin&vs_currencies=usd&include_market_cap"
         "=false&include_24hr_vol"
-        "=false&include_24hr_change=false&include_last_updated_at=false"
-    )
+        "=false&include_24hr_change=false&include_last_updated_at=false", 
+    timeout=60)
     return req.json()["bitcoin"]["usd"]
 
 

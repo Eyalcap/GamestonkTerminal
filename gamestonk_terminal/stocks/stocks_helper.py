@@ -56,7 +56,7 @@ def search(
         "https://raw.githubusercontent.com/JerBouma/FinanceDatabase/master/"
         "Database/Equities/Equities List.json"
     )
-    request = requests.get(equities_list)
+    request = requests.get(equities_list, timeout=60)
     equities = json.loads(request.text)
 
     equities_query = {

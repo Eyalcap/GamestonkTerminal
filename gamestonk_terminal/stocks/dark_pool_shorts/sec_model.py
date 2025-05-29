@@ -33,7 +33,7 @@ def get_fails_to_deliver(
     if num > 0:
         url_ftds = "https://www.sec.gov/data/foiadocsfailsdatahtm"
         text_soup_ftds = BeautifulSoup(
-            requests.get(url_ftds, headers={"User-Agent": get_user_agent()}).text,
+            requests.get(url_ftds, headers={"User-Agent": get_user_agent()}, timeout=60).text,
             "lxml",
         )
 

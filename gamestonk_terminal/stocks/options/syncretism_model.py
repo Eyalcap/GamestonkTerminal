@@ -60,7 +60,7 @@ def get_historical_greeks(
 
         chain_id = options.loc[options.strike == strike, "contractSymbol"].values[0]
 
-    r = requests.get(f"https://api.syncretism.io/ops/historical/{chain_id}")
+    r = requests.get(f"https://api.syncretism.io/ops/historical/{chain_id}", timeout=60)
 
     if r.status_code != 200:
         print("Error in request.")
@@ -169,8 +169,8 @@ def get_screener_output(preset: str, presets_path: str) -> Tuple[pd.DataFrame, s
     link = "https://api.syncretism.io/ops"
 
     res = requests.get(
-        link, headers={"Content-type": "application/json"}, data=s_filters
-    )
+        link, headers={"Content-type": "application/json"}, data=s_filters, 
+    timeout=60)
 
     # pylint:disable=no-else-return
     if res.status_code == 200:

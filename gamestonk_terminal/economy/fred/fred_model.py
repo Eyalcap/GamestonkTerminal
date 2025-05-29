@@ -27,7 +27,7 @@ def check_series_id(series_id: str) -> Tuple[bool, Dict]:
         Dictionary of series information
     """
     url = f"https://api.stlouisfed.org/fred/series?series_id={series_id}&api_key={cfg.API_FRED_KEY}&file_type=json"
-    r = requests.get(url, headers={"User-Agent": get_user_agent()})
+    r = requests.get(url, headers={"User-Agent": get_user_agent()}, timeout=60)
     # The above returns 200 if series is found
     # There seems to be an occasional bug giving a 503 response where the json decoding fails
     if r.status_code >= 500:

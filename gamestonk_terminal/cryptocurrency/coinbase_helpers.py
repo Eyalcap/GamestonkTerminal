@@ -114,7 +114,7 @@ def make_coinbase_request(
     """
 
     url = "https://api.pro.coinbase.com"
-    response = requests.get(url + endpoint, params=params, auth=auth)
+    response = requests.get(url + endpoint, params=params, auth=auth, timeout=60)
 
     if not 200 <= response.status_code < 300:
         raise CoinbaseApiException(f"Invalid Authentication: {response.text}")

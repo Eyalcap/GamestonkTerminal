@@ -22,8 +22,8 @@ def get_high_short_interest() -> DataFrame:
 
     text_soup_high_short_interested_stocks = BeautifulSoup(
         requests.get(
-            url_high_short_interested_stocks, headers={"User-Agent": get_user_agent()}
-        ).text,
+            url_high_short_interested_stocks, headers={"User-Agent": get_user_agent()}, 
+        timeout=60).text,
         "lxml",
     )
 

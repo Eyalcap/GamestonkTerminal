@@ -61,7 +61,7 @@ def query_graph(url: str, query: str) -> dict:
         Dictionary with response data
     """
 
-    request = requests.post(url, json={"query": query})
+    request = requests.post(url, json={"query": query}, timeout=60)
     if request.status_code == 200:
         return request.json()["data"]
     return {}

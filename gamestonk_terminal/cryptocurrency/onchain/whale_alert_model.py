@@ -46,7 +46,7 @@ def make_request(params: Optional[dict] = None) -> dict:
 
     api_key = cfg.API_WHALE_ALERT_KEY or ""
     url = "https://api.whale-alert.io/v1/transactions?api_key=" + api_key
-    response = requests.get(url, params=params)
+    response = requests.get(url, params=params, timeout=60)
 
     if not 200 <= response.status_code < 300:
         raise ApiKeyException(f"Invalid Authentication: {response.text}")

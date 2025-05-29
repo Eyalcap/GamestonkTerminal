@@ -22,7 +22,7 @@ def get_options_info(ticker: str) -> pd.DataFrame:
     """
     page = f"https://www.barchart.com/stocks/quotes/{ticker}/overview"
 
-    r = requests.get(page, headers={"User-Agent": get_user_agent()})
+    r = requests.get(page, headers={"User-Agent": get_user_agent()}, timeout=60)
     soup = BeautifulSoup(r.text, "html.parser")
     tags = soup.find(
         "div",

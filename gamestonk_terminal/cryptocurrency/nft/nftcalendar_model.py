@@ -24,7 +24,7 @@ def get_nft_drops(url: str) -> pd.DataFrame:
         requests.get(
             url,
             headers={"User-Agent": get_user_agent()},
-        ).text,
+        timeout=60).text,
         "lxml",
     )
     drop_titles = list()

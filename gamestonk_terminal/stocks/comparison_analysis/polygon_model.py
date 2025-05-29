@@ -23,8 +23,8 @@ def get_similar_companies(ticker: str, us_only: bool) -> Tuple[List[str], str]:
         String indicating data source
     """
     result = requests.get(
-        f"https://api.polygon.io/v1/meta/symbols/{ticker.upper()}/company?&apiKey={cfg.API_POLYGON_KEY}"
-    )
+        f"https://api.polygon.io/v1/meta/symbols/{ticker.upper()}/company?&apiKey={cfg.API_POLYGON_KEY}", 
+    timeout=60)
 
     if result.status_code == 200:
         similar = result.json()["similar"]
@@ -34,7 +34,7 @@ def get_similar_companies(ticker: str, us_only: bool) -> Tuple[List[str], str]:
             mkw_link = "https://www.marketwatch.com/investing/stock/"
             for sym in similar:
                 prep_link = mkw_link + sym
-                sent_req = requests.get(prep_link)
+                sent_req = requests.get(prep_link, timeout=60)
                 if prep_link == sent_req.request.url:
                     us_similar.append(sym)
                 similar = us_similar

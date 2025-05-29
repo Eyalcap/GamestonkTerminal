@@ -49,8 +49,8 @@ def get_futures() -> dict:
        Indices, Energy, Metals, Meats, Grains, Softs, Bonds, Currencies
     """
     source = requests.get(
-        "https://finviz.com/futures.ashx", headers={"User-Agent": get_user_agent()}
-    ).text
+        "https://finviz.com/futures.ashx", headers={"User-Agent": get_user_agent()}, 
+    timeout=60).text
 
     slice_source = source[
         source.find("var groups = ") : source.find(

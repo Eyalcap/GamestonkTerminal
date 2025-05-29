@@ -66,7 +66,7 @@ def get_yield_curve_year(year: str) -> DataFrame:
         requests.get(
             yield_curve_url.format(year),
             headers={"User-Agent": get_user_agent()},
-        ).text,
+        timeout=60).text,
         "lxml",
     )
 

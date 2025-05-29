@@ -16,7 +16,7 @@ def get_defipulse_index() -> pd.DataFrame:
         List of DeFi Pulse protocols.
     """
 
-    req = requests.get("https://defipulse.com/")
+    req = requests.get("https://defipulse.com/", timeout=60)
     result = req.content.decode("utf8")
     soup = BeautifulSoup(result, features="lxml")
     table = soup.find("tbody").find_all("tr")

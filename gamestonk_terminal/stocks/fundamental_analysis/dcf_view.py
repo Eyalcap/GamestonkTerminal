@@ -108,7 +108,7 @@ class CreateExcelFA:
             title = "Income Statement"
             ignores = dcf_model.non_gaap_is
 
-        r = requests.get(URL, headers=dcf_model.headers)
+        r = requests.get(URL, headers=dcf_model.headers, timeout=60)
 
         if "404 - Page Not Found" in r.text:
             raise ValueError("The ticker given is not in the stock analysis website.")
@@ -1291,7 +1291,7 @@ class CreateExcelFA:
         if statement == "IS":
             ignores = dcf_model.non_gaap_is
 
-        r = requests.get(URL, headers=dcf_model.headers)
+        r = requests.get(URL, headers=dcf_model.headers, timeout=60)
 
         if "404 - Page Not Found" in r.text:
             # TODO: add better handling

@@ -29,7 +29,7 @@ async def unu_command(ctx, num: int = None):
             r = requests.get(
                 f"https://app.fdscanner.com/api2/unusualvolume?p=0&page_size=20&page={int(page_num)}",
                 headers={"User-Agent": get_user_agent()},
-            )
+            timeout=60)
 
             if r.status_code != 200:
                 logger.debug("Error in fdscanner request")

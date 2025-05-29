@@ -134,7 +134,7 @@ def print_insider_data(type_insider: str, limit: int = 10, export: str = ""):
     export: str
         Export data format
     """
-    response = requests.get(f"http://openinsider.com/{d_open_insider[type_insider]}")
+    response = requests.get(f"http://openinsider.com/{d_open_insider[type_insider]}", timeout=60)
     soup = BeautifulSoup(response.text, "html.parser")
     table = soup.find("table", {"class": "tinytable"})
 

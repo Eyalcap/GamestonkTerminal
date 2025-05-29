@@ -54,7 +54,7 @@ def load_analyze_tweets(
         "https://api.twitter.com/2/tweets/search/recent",
         params=params,  # type: ignore
         headers={"authorization": "Bearer " + cfg.API_TWITTER_BEARER_TOKEN},
-    )
+    timeout=60)
 
     # Create dataframe
     df_tweets = pd.DataFrame()

@@ -84,7 +84,7 @@ def make_request(**kwargs: Any) -> dict:
     if region and region in REGIONS:
         url += f"&regions={region}"
 
-    response = requests.get(url)
+    response = requests.get(url, timeout=60)
 
     if not 200 <= response.status_code < 300:
         raise ApiKeyException(f"Invalid Authentication: {response.text}")
@@ -168,7 +168,7 @@ def get_news(
         counter += 1
         try:
             time.sleep(0.2)
-            res = requests.get(next_page).json()
+            res = requests.get(next_page, timeout=60).json()
             for post in res["results"]:
                 results.append(_parse_post(post))
             next_page = res.get("next")

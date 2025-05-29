@@ -36,7 +36,7 @@ def get_altcoin_index(period: int, since: int, until: int) -> pd.DataFrame:
         requests.get(
             "https://www.blockchaincenter.net/altcoin-season-index/",
             headers={"User-Agent": get_user_agent()},
-        ).content,
+        timeout=60).content,
         "html.parser",
     )
     script = soup.select_one(f'script:-soup-contains("chartdata[{period}]")')

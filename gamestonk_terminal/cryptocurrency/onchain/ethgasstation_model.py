@@ -19,7 +19,7 @@ def get_gwei_fees() -> pd.DataFrame:
             its average durations in seconds)
     """
 
-    r = requests.get("https://ethgasstation.info/json/ethgasAPI.json")
+    r = requests.get("https://ethgasstation.info/json/ethgasAPI.json", timeout=60)
 
     try:
         if r.status_code == 200:

@@ -33,7 +33,7 @@ def get_open_interest_per_exchange(symbol: str, interval: int) -> pd.DataFrame:
 
     headers = {"coinglassSecret": cfg.API_COINGLASS_KEY}
 
-    response = requests.request("GET", url, headers=headers)
+    response = requests.request("GET", url, headers=headers, timeout=60)
 
     if response.status_code == 200:
         res_json = json.loads(response.text)

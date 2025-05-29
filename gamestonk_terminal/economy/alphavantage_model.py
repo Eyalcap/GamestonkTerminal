@@ -39,7 +39,7 @@ def get_real_gdp(interval: str = "a") -> pd.DataFrame:
     """
     s_interval = "quarterly" if interval == "q" else "annual"
     url = f"https://www.alphavantage.co/query?function=REAL_GDP&interval={s_interval}&apikey={cfg.API_KEY_ALPHAVANTAGE}"
-    r = requests.get(url, headers={"User-Agent": get_user_agent()})
+    r = requests.get(url, headers={"User-Agent": get_user_agent()}, timeout=60)
 
     if r.status_code != 200:
         return pd.DataFrame()
@@ -60,7 +60,7 @@ def get_gdp_capita() -> pd.DataFrame:
         DataFrame of GDP per Capita
     """
     url = f"https://www.alphavantage.co/query?function=REAL_GDP_PER_CAPITA&apikey={cfg.API_KEY_ALPHAVANTAGE}"
-    r = requests.get(url, headers={"User-Agent": get_user_agent()})
+    r = requests.get(url, headers={"User-Agent": get_user_agent()}, timeout=60)
     if r.status_code != 200:
         return pd.DataFrame()
     data = pd.DataFrame(r.json()["data"])
@@ -79,7 +79,7 @@ def get_inflation() -> pd.DataFrame:
         DataFrame of inflation rates
     """
     url = f"https://www.alphavantage.co/query?function=INFLATION&apikey={cfg.API_KEY_ALPHAVANTAGE}"
-    r = requests.get(url, headers={"User-Agent": get_user_agent()})
+    r = requests.get(url, headers={"User-Agent": get_user_agent()}, timeout=60)
     if r.status_code != 200:
         return pd.DataFrame()
     data = pd.DataFrame(r.json()["data"])
@@ -105,7 +105,7 @@ def get_cpi(interval: str) -> pd.DataFrame:
     """
     s_interval = "semiannual" if interval == "s" else "monthly"
     url = f"https://www.alphavantage.co/query?function=CPI&interval={s_interval}&apikey={cfg.API_KEY_ALPHAVANTAGE}"
-    r = requests.get(url, headers={"User-Agent": get_user_agent()})
+    r = requests.get(url, headers={"User-Agent": get_user_agent()}, timeout=60)
 
     if r.status_code != 200:
         return pd.DataFrame()
@@ -138,7 +138,7 @@ def get_treasury_yield(interval: str, maturity: str) -> pd.DataFrame:
 
     url = f"https://www.alphavantage.co/query?function=TREASURY_YIELD&interval={d_interval[interval]}&ma"
     url += f"turity={d_maturity[maturity]}&apikey={cfg.API_KEY_ALPHAVANTAGE}"
-    r = requests.get(url, headers={"User-Agent": get_user_agent()})
+    r = requests.get(url, headers={"User-Agent": get_user_agent()}, timeout=60)
     if r.status_code != 200:
         return pd.DataFrame()
 
@@ -159,7 +159,7 @@ def get_unemployment() -> pd.DataFrame:
         Dataframe of historical yields
     """
     url = f"https://www.alphavantage.co/query?function=UNEMPLOYMENT&apikey={cfg.API_KEY_ALPHAVANTAGE}"
-    r = requests.get(url, headers={"User-Agent": get_user_agent()})
+    r = requests.get(url, headers={"User-Agent": get_user_agent()}, timeout=60)
     if r.status_code != 200:
         return pd.DataFrame()
     data = pd.DataFrame(r.json()["data"])

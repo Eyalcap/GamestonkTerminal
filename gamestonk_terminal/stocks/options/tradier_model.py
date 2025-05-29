@@ -79,7 +79,7 @@ def get_historical_options(
             "Authorization": f"Bearer {cfg.TRADIER_TOKEN}",
             "Accept": "application/json",
         },
-    )
+    timeout=60)
 
     if response.status_code != 200:
         print("Error with request")
@@ -120,7 +120,7 @@ def option_expirations(ticker: str) -> List[str]:
             "Authorization": f"Bearer {cfg.TRADIER_TOKEN}",
             "Accept": "application/json",
         },
-    )
+    timeout=60)
     if r.status_code == 200:
         try:
             dates = r.json()["expirations"]["date"]
@@ -159,7 +159,7 @@ def get_option_chains(symbol: str, expiry: str) -> pd.DataFrame:
         "https://sandbox.tradier.com/v1/markets/options/chains",
         params=params,
         headers=headers,
-    )
+    timeout=60)
     if response.status_code != 200:
         print("Error in request. Check TRADIER_TOKEN\n")
         return pd.DataFrame()
@@ -227,7 +227,7 @@ def last_price(ticker: str):
             "Authorization": f"Bearer {cfg.TRADIER_TOKEN}",
             "Accept": "application/json",
         },
-    )
+    timeout=60)
     if r.status_code == 200:
         return float(r.json()["quotes"]["quote"]["last"])
     else:

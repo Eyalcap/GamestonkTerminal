@@ -198,7 +198,7 @@ def get_close_price(asset: str, interval: str, since: int, until: int) -> pd.Dat
         "u": str(until),
     }
 
-    r = requests.get(url, params=parameters)
+    r = requests.get(url, params=parameters, timeout=60)
     if r.status_code == 200:
         df = pd.DataFrame(json.loads(r.text))
         df = df.set_index("t")
@@ -241,7 +241,7 @@ def get_non_zero_addresses(
         "u": str(until),
     }
 
-    r = requests.get(url, params=parameters)
+    r = requests.get(url, params=parameters, timeout=60)
 
     if r.status_code == 200:
         df = pd.DataFrame(json.loads(r.text))
@@ -284,7 +284,7 @@ def get_active_addresses(
         "u": str(until),
     }
 
-    r = requests.get(url, params=parameters)
+    r = requests.get(url, params=parameters, timeout=60)
 
     if r.status_code == 200:
         df = pd.DataFrame(json.loads(r.text))
@@ -326,8 +326,8 @@ def get_hashrate(asset: str, interval: str, since: int, until: int) -> pd.DataFr
         "u": str(until),
     }
 
-    r = requests.get(url, params=parameters)
-    r2 = requests.get(url2, params=parameters)
+    r = requests.get(url, params=parameters, timeout=60)
+    r2 = requests.get(url2, params=parameters, timeout=60)
     if r.status_code == 200 and r2.status_code == 200:
         df2 = pd.DataFrame(json.loads(r2.text))
         df = pd.DataFrame(json.loads(r.text))
@@ -378,11 +378,11 @@ def get_exchange_balances(
         "u": str(until),
     }
 
-    r = requests.get(url, params=parameters)  # get balances
-    r2 = requests.get(url2, params=parameters)  # get relative (percentage) balances
+    r = requests.get(url, params=parameters, timeout=60)  # get balances
+    r2 = requests.get(url2, params=parameters, timeout=60)  # get relative (percentage) balances
     r3 = requests.get(
-        url3, params=parameters
-    )  # get price TODO: grab data from loaded symbol
+        url3, params=parameters, 
+    timeout=60)  # get price TODO: grab data from loaded symbol
 
     if r.status_code == 200 and r2.status_code == 200 and r3.status_code == 200:
         df3 = pd.DataFrame(json.loads(r3.text))
@@ -434,7 +434,7 @@ def get_exchange_net_position_change(
         "u": str(until),
     }
 
-    r = requests.get(url, params=parameters)
+    r = requests.get(url, params=parameters, timeout=60)
 
     if r.status_code == 200:
         df = pd.DataFrame(json.loads(r.text))

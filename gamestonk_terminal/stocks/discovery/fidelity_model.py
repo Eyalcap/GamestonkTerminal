@@ -25,7 +25,7 @@ def get_orders() -> Tuple[str, DataFrame]:
     )
 
     text_soup_url_orders = BeautifulSoup(
-        requests.get(url_orders, headers={"User-Agent": get_user_agent()}).text, "lxml"
+        requests.get(url_orders, headers={"User-Agent": get_user_agent()}, timeout=60).text, "lxml"
     )
 
     l_orders = []

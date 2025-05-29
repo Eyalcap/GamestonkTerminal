@@ -13,8 +13,8 @@ def get_economy_calendar_events() -> pd.DataFrame:
         Get dataframe with economic calendar events
     """
     response = requests.get(
-        f"https://finnhub.io/api/v1/calendar/economic?token={cfg.API_FINNHUB_KEY}"
-    )
+        f"https://finnhub.io/api/v1/calendar/economic?token={cfg.API_FINNHUB_KEY}", 
+    timeout=60)
     if response.status_code == 200:
         d_data = response.json()
         if "economicCalendar" in d_data:

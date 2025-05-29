@@ -1240,7 +1240,7 @@ def get_open_insider_data(url: str, has_company_name: bool) -> pd.DataFrame:
     data : pd.DataFrame
         open insider filtered data
     """
-    text_soup_open_insider = BeautifulSoup(requests.get(url).text, "lxml")
+    text_soup_open_insider = BeautifulSoup(requests.get(url, timeout=60).text, "lxml")
 
     if len(text_soup_open_insider.find_all("tbody")) == 0:
         print("No insider trading found.")

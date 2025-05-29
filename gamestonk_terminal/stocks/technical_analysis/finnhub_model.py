@@ -24,8 +24,8 @@ def get_pattern_recognition(ticker: str, resolution: str) -> pd.DataFrame:
     """
 
     response = requests.get(
-        f"https://finnhub.io/api/v1/scan/pattern?symbol={ticker}&resolution={resolution}&token={cfg.API_FINNHUB_KEY}"
-    )
+        f"https://finnhub.io/api/v1/scan/pattern?symbol={ticker}&resolution={resolution}&token={cfg.API_FINNHUB_KEY}", 
+    timeout=60)
 
     # pylint:disable=no-else-return
     if response.status_code == 200:

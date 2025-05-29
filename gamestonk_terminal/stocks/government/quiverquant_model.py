@@ -75,7 +75,7 @@ def get_government_trading(gov_type: str, ticker: str = "") -> pd.DataFrame:
         "X-CSRFToken": "TyTJwjuEC7VV7mOqZ622haRaaUr0x0Ng4nrwSRFKQs7vdoBcJlK9qjAS69ghzhFu",  # pragma: allowlist secret
         "Authorization": f"Token {API_QUIVERQUANT_KEY}",
     }
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers, timeout=60)
     if response.status_code == 200:
         if gov_type in ["congress", "senate", "house"]:
             return pd.DataFrame(response.json()).rename(

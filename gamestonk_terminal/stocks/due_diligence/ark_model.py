@@ -23,7 +23,7 @@ def get_ark_trades_by_ticker(ticker: str) -> pd.DataFrame:
         DataFrame of trades
     """
     url = f"https://cathiesark.com/ark-combined-holdings-of-{ticker}"
-    r = requests.get(url, headers={"User-Agent": get_user_agent()})
+    r = requests.get(url, headers={"User-Agent": get_user_agent()}, timeout=60)
     # Error in request
     if r.status_code != 200:
         return pd.DataFrame()

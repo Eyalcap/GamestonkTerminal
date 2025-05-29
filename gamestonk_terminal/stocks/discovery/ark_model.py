@@ -24,7 +24,7 @@ def get_ark_orders() -> DataFrame:
     """
     url_orders = "https://cathiesark.com/ark-funds-combined/trades"
 
-    raw_page = requests.get(url_orders, headers={"User-Agent": get_user_agent()}).text
+    raw_page = requests.get(url_orders, headers={"User-Agent": get_user_agent()}, timeout=60).text
 
     parsed_script = BeautifulSoup(raw_page, "lxml").find(
         "script", {"id": "__NEXT_DATA__"}

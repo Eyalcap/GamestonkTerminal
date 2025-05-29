@@ -21,8 +21,8 @@ def get_all_names_symbols() -> Tuple[List[str], List[str]]:
         List of all available etf names
     """
     r = requests.get(
-        "https://stockanalysis.com/etf/", headers={"User-Agent": get_user_agent()}
-    )
+        "https://stockanalysis.com/etf/", headers={"User-Agent": get_user_agent()}, 
+    timeout=60)
     soup2 = bs(r.text, "html.parser")
     script = soup2.find("script", {"id": "__NEXT_DATA__"})
     etfs = pd.DataFrame(json.loads(script.text)["props"]["pageProps"]["stocks"])
@@ -47,7 +47,7 @@ def get_etf_overview(etf_symbol: str) -> pd.DataFrame:
     r = requests.get(
         f"https://stockanalysis.com/etf/{etf_symbol}",
         headers={"User-Agent": get_user_agent()},
-    )
+    timeout=60)
     soup = bs(r.text, "html.parser")  # %%
     tables = soup.findAll("table")
     texts = []
@@ -79,7 +79,7 @@ def get_etf_holdings(symbol: str) -> pd.DataFrame:
     """
 
     link = f"https://stockanalysis.com/etf/{symbol}/holdings/"
-    r = requests.get(link, headers={"User-Agent": get_user_agent()})
+    r = requests.get(link, headers={"User-Agent": get_user_agent()}, timeout=60)
     if r.status_code == 200:
         soup = bs(r.text, "html.parser")
         soup = soup.find("table")

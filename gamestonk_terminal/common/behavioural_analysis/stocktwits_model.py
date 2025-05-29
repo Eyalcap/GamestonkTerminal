@@ -27,8 +27,8 @@ def get_bullbear(ticker: str) -> Tuple[int, int, int, int]:
         Number of bearish statements
     """
     result = requests.get(
-        f"https://api.stocktwits.com/api/2/streams/symbol/{ticker}.json"
-    )
+        f"https://api.stocktwits.com/api/2/streams/symbol/{ticker}.json", 
+    timeout=60)
     if result.status_code == 200:
         watchlist_count = result.json()["symbol"]["watchlist_count"]
         n_cases = 0
@@ -60,8 +60,8 @@ def get_messages(ticker: str, limit: int = 30) -> List[str]:
         List of messages
     """
     result = requests.get(
-        f"https://api.stocktwits.com/api/2/streams/symbol/{ticker}.json"
-    )
+        f"https://api.stocktwits.com/api/2/streams/symbol/{ticker}.json", 
+    timeout=60)
     messages = []
     if result.status_code == 200:
         for idx, message in enumerate(result.json()["messages"]):
@@ -79,7 +79,7 @@ def get_trending() -> pd.DataFrame:
     pd.DataFrame
         Dataframe of trending tickers and watchlist count
     """
-    result = requests.get("https://api.stocktwits.com/api/2/trending/symbols.json")
+    result = requests.get("https://api.stocktwits.com/api/2/trending/symbols.json", timeout=60)
     if result.status_code == 200:
         l_symbols = []
         for symbol in result.json()["symbols"]:
@@ -105,7 +105,7 @@ def get_stalker(user: str, limit: int = 30) -> List[Dict]:
     limit : int, optional
         Number of posts to get, by default 30
     """
-    result = requests.get(f"https://api.stocktwits.com/api/2/streams/user/{user}.json")
+    result = requests.get(f"https://api.stocktwits.com/api/2/streams/user/{user}.json", timeout=60)
     if result.status_code == 200:
         messages = []
         for idx, message in enumerate(result.json()["messages"]):

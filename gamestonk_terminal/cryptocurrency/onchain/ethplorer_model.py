@@ -143,7 +143,7 @@ def make_request(endpoint: str, address: Optional[str] = None, **kwargs: Any) ->
         url += f"&limit={kwargs['limit']}"
 
     sleep(0.5)  # Limit is 2 API calls per 1 sec.
-    response = requests.get(url).json()
+    response = requests.get(url, timeout=60).json()
     if "error" in response:
         raise Exception(
             f"Error: {response['error']['code']}. Message: {response['error']['message']}\n",

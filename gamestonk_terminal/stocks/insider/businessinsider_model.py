@@ -25,8 +25,8 @@ def get_insider_activity(ticker: str) -> pd.DataFrame:
     )
     text_soup_market_business_insider = BeautifulSoup(
         requests.get(
-            url_market_business_insider, headers={"User-Agent": get_user_agent()}
-        ).text,
+            url_market_business_insider, headers={"User-Agent": get_user_agent()}, 
+        timeout=60).text,
         "lxml",
     )
 

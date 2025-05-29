@@ -130,7 +130,7 @@ def get_overall_withdrawal_fees(top: int = 100) -> pd.DataFrame:
         requests.get(
             "https://withdrawalfees.com/",
             headers={"User-Agent": get_user_agent()},
-        ).text,
+        timeout=60).text,
         "lxml",
     )
     table = withdrawal_fees_homepage.find_all("table")
@@ -153,7 +153,7 @@ def get_overall_withdrawal_fees(top: int = 100) -> pd.DataFrame:
                 requests.get(
                     f"https://withdrawalfees.com/coins/page/{idx}",
                     headers={"User-Agent": get_user_agent()},
-                ).text,
+                timeout=60).text,
                 "lxml",
             )
             table = withdrawal_fees_homepage.find_all("table")
@@ -187,7 +187,7 @@ def get_overall_exchange_withdrawal_fees() -> pd.DataFrame:
         requests.get(
             "https://withdrawalfees.com/exchanges",
             headers={"User-Agent": get_user_agent()},
-        ).text,
+        timeout=60).text,
         "lxml",
     )
     table = exchange_withdrawal_fees.find_all("table")
@@ -218,7 +218,7 @@ def get_crypto_withdrawal_fees(
         requests.get(
             f"https://withdrawalfees.com/coins/{symbol}",
             headers={"User-Agent": get_user_agent()},
-        ).text,
+        timeout=60).text,
         "lxml",
     )
     if crypto_withdrawal_fees is None:

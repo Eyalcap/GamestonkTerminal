@@ -29,7 +29,7 @@ def get_defi_protocols() -> pd.DataFrame:
         Information about DeFi protocols
     """
 
-    response = requests.get("https://api.llama.fi/protocols")
+    response = requests.get("https://api.llama.fi/protocols", timeout=60)
     columns = [
         "name",
         "symbol",

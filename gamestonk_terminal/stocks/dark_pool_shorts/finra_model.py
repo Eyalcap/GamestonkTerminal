@@ -48,7 +48,7 @@ def getFINRAweeks(tier: str, is_ats: bool) -> List:
         "https://api.finra.org/data/group/otcMarket/name/weeklyDownloadDetails",
         headers=req_hdr,
         json=req_data,
-    )
+    timeout=60)
 
     return response.json() if response.status_code == 200 else list()
 
@@ -121,7 +121,7 @@ def getFINRAdata_offset(
         "https://api.finra.org/data/group/otcMarket/name/weeklySummary",
         headers=req_hdr,
         json=req_data,
-    )
+    timeout=60)
 
 
 def getFINRAdata(
@@ -191,7 +191,7 @@ def getFINRAdata(
         "https://api.finra.org/data/group/otcMarket/name/weeklySummary",
         headers=req_hdr,
         json=req_data,
-    )
+    timeout=60)
 
     return (
         response.status_code,

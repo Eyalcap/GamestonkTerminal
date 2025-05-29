@@ -17,7 +17,7 @@ def get_technical_summary_report(ticker: str) -> str:
     report:str
         technical summary report
     """
-    result = requests.get(f"https://api.finbrain.tech/v0/technicalSummary/{ticker}")
+    result = requests.get(f"https://api.finbrain.tech/v0/technicalSummary/{ticker}", timeout=60)
     report = ""
     if result.status_code == 200:
         if "technicalSummary" in result.json():

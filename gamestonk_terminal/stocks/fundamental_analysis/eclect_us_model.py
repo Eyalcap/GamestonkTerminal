@@ -22,7 +22,7 @@ def get_filings_analysis(ticker: str) -> str:
         Analysis of filings text
     """
 
-    response = requests.get(f"https://api.eclect.us/symbol/{ticker.lower()}?page=1")
+    response = requests.get(f"https://api.eclect.us/symbol/{ticker.lower()}?page=1", timeout=60)
 
     if response.status_code != 200:
         filings_analysis = ""

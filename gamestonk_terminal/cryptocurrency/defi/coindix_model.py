@@ -136,7 +136,7 @@ def get_defi_vaults(
     """
 
     params = _prepare_params(chain=chain, protocol=protocol, kind=kind)
-    response = requests.get("https://apiv2.coindix.com/search", params=params)
+    response = requests.get("https://apiv2.coindix.com/search", params=params, timeout=60)
     if not 200 <= response.status_code < 300:
         raise Exception(f"Coindix api exception: {response.text}")
 
