@@ -1,5 +1,4 @@
 import os
-import random
 from datetime import datetime, timedelta
 import configparser
 
@@ -17,6 +16,7 @@ import discordbot.config_discordbot as cfg
 from discordbot.run_discordbot import logger
 from discordbot.run_discordbot import gst_imgur
 from discordbot.stocks.screener import screener_options as so
+import secrets
 
 # pylint:disable=no-member
 
@@ -74,7 +74,7 @@ async def historical_command(ctx, signal="", start=""):
                 "\nThe limit of stocks to compare with are 10. Hence, 10 random similar stocks will be displayed."
                 "\nThe selected list will be: "
             )
-            random.shuffle(l_stocks)
+            secrets.SystemRandom().shuffle(l_stocks)
             l_stocks = sorted(l_stocks[:10])
             description = description + (", ".join(l_stocks))
             logger.debug(description)

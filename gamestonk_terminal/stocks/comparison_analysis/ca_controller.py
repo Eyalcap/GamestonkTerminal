@@ -1,8 +1,9 @@
 """Comparison Analysis Controller Module"""
+import secrets
+
 __docformat__ = "numpy"
 
 import argparse
-import random
 from typing import List
 from datetime import datetime, timedelta
 import yfinance as yf
@@ -251,7 +252,7 @@ Finviz:
                     self.similar.remove(self.ticker.upper())
 
                 if len(self.similar) > ns_parser.limit:
-                    random.shuffle(self.similar)
+                    secrets.SystemRandom().shuffle(self.similar)
                     self.similar = sorted(self.similar[: ns_parser.limit])
                     print(
                         f"The limit of stocks to compare are {ns_parser.limit}. The subsample will occur randomly.\n",
@@ -304,7 +305,7 @@ Finviz:
                     self.similar.remove(self.ticker.upper())
 
                 if len(self.similar) > ns_parser.limit:
-                    random.shuffle(self.similar)
+                    secrets.SystemRandom().shuffle(self.similar)
                     self.similar = sorted(self.similar[: ns_parser.limit])
                     print(
                         f"The limit of stocks to compare are {ns_parser.limit}. The subsample will occur randomly.\n",
@@ -350,7 +351,7 @@ Finviz:
                     self.similar.remove(self.ticker.upper())
 
                 if len(self.similar) > ns_parser.limit:
-                    random.shuffle(self.similar)
+                    secrets.SystemRandom().shuffle(self.similar)
                     self.similar = sorted(self.similar[: ns_parser.limit])
                     print(
                         f"The limit of stocks to compare are {ns_parser.limit}. The subsample will occur randomly.\n",

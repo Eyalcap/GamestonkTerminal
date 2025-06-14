@@ -1,9 +1,10 @@
 """Yahoo Finance View"""
+import secrets
+
 __docformat__ = "numpy"
 import configparser
 import datetime
 import os
-import random
 from typing import List
 import numpy as np
 import pandas as pd
@@ -88,7 +89,7 @@ def historical(
 
     if l_stocks:
         if len(l_stocks) > limit:
-            random.shuffle(l_stocks)
+            secrets.SystemRandom().shuffle(l_stocks)
             l_stocks = sorted(l_stocks[:limit])
             print(
                 "\nThe limit of stocks to compare with are 10. Hence, 10 random similar stocks will be displayed.",

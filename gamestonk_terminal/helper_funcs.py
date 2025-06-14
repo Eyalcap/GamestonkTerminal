@@ -1,4 +1,6 @@
 """Helper functions"""
+import secrets
+
 __docformat__ = "numpy"
 # pylint: disable=too-many-lines
 import argparse
@@ -6,7 +8,6 @@ import logging
 from typing import List
 from datetime import datetime, timedelta
 import os
-import random
 import re
 import sys
 import pytz
@@ -495,7 +496,7 @@ def get_user_agent() -> str:
         "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:84.0) Gecko/20100101 Firefox/84.0",
     ]
 
-    return random.choice(user_agent_strings)  # nosec
+    return secrets.choice(user_agent_strings)  # nosec
 
 
 def text_adjustment_init(self):

@@ -1,7 +1,7 @@
 """ Thought of The Day """
-__docformat__ = "numpy"
+import secrets
 
-import random
+__docformat__ = "numpy"
 import re
 from typing import Dict
 
@@ -133,6 +133,6 @@ def get_thought_of_the_day():
         quotes = quotes + metadata["quotes"]
 
     print("Thought of the day:")
-    print(totd.quote_to_str(quotes[random.randint(0, len(quotes) - 1)]))
+    print(totd.quote_to_str(quotes[secrets.SystemRandom().randint(0, len(quotes) - 1)]))
 
     print("")

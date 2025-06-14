@@ -1,9 +1,10 @@
 """Terminal helper"""
+import secrets
+
 __docformat__ = "numpy"
 import hashlib
 import logging
 import os
-import random
 import subprocess  # nosec
 import sys
 from datetime import datetime
@@ -311,7 +312,7 @@ def print_goodbye():
         goodbye_msg_time = "Go get some rest soldier!"
 
     print(  # nosec
-        goodbye_msg[random.randint(0, len(goodbye_msg) - 1)] + goodbye_msg_time + "\n"
+        goodbye_msg[secrets.SystemRandom().randint(0, len(goodbye_msg) - 1)] + goodbye_msg_time + "\n"
     )
 
     logger.info("Terminal stopped")

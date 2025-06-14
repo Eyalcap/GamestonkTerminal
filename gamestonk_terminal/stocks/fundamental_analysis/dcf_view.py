@@ -1,10 +1,11 @@
 """ DCF View """
+import secrets
+
 __docformat__ = "numpy"
 
 from typing import List, Union
 from datetime import datetime
 from pathlib import Path
-import random
 import os
 
 from openpyxl.styles.numbers import FORMAT_PERCENTAGE_00
@@ -1264,7 +1265,7 @@ class CreateExcelFA:
     def get_sister_dfs(self):
         # TODO: Once mcap is added to this, we can add as an additional filters for more comparative results
         sisters = self.sisters
-        random.shuffle(sisters)
+        secrets.SystemRandom().shuffle(sisters)
         i = 0
         new_list = []
         while i < 3 and sisters:
