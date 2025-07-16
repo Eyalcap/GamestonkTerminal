@@ -1,4 +1,6 @@
 """Dashboards Module"""
+from security import safe_command
+
 __docformat__ = "numpy"
 
 import os
@@ -83,8 +85,7 @@ def create_call(other_args: List[str], name: str, filename: str = None) -> None:
         response = input("Would you like us to run the server for you? y/n\n")
         if response.lower() == "y":
 
-            subprocess.Popen(
-                f"{cmd} {file}",
+            safe_command.run(subprocess.Popen, f"{cmd} {file}",
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 shell=True,

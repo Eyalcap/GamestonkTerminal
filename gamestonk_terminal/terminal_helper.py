@@ -1,4 +1,6 @@
 """Terminal helper"""
+from security import safe_command
+
 __docformat__ = "numpy"
 import hashlib
 import logging
@@ -414,14 +416,12 @@ def reset(queue: List[str] = None):
     plt.close("all")
 
     if queue and len(queue) > 0:
-        completed_process = subprocess.run(  # nosec
-            f"{sys.executable} terminal.py {'/'.join(queue) if len(queue) > 0 else ''}",
+        completed_process = safe_command.run(subprocess.run, f"{sys.executable} terminal.py {'/'.join(queue) if len(queue) > 0 else ''}",
             shell=True,
             check=False,
         )
     else:
-        completed_process = subprocess.run(  # nosec
-            f"{sys.executable} terminal.py", shell=True, check=False
+        completed_process = safe_command.run(subprocess.run, f"{sys.executable} terminal.py", shell=True, check=False
         )
     if completed_process.returncode != 0:
         print("Unfortunately, resetting wasn't possible!\n")
