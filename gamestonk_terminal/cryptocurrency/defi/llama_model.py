@@ -1,4 +1,6 @@
 """Llama model"""
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 from datetime import datetime
@@ -68,7 +70,7 @@ def get_defi_tvl() -> pd.DataFrame:
     pd.DataFrame
         Historical values of total sum of Total Value Locked from all listed protocols.
     """
-    response = requests.get("https://api.llama.fi/charts", timeout=5)
+    response = safe_requests.get("https://api.llama.fi/charts", timeout=5)
     if response.status_code != 200:
         raise Exception(f"Status code: {response.status_code}. Reason: {response.text}")
     try:

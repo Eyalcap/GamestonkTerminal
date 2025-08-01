@@ -1,8 +1,9 @@
 """ Finviz Model """
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 from ast import literal_eval
-import requests
 import pandas as pd
 from finvizfinance.group import performance, spectrum, valuation
 
@@ -48,7 +49,7 @@ def get_futures() -> dict:
     futures : dict
        Indices, Energy, Metals, Meats, Grains, Softs, Bonds, Currencies
     """
-    source = requests.get(
+    source = safe_requests.get(
         "https://finviz.com/futures.ashx", headers={"User-Agent": get_user_agent()}
     ).text
 

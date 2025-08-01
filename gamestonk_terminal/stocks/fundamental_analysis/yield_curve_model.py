@@ -1,11 +1,12 @@
 """ Fundamental Analysis Yield Curve Model """
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 from datetime import datetime
 from bs4 import BeautifulSoup
 import pandas as pd
 from pandas.core.frame import DataFrame
-import requests
 
 from gamestonk_terminal.helper_funcs import (
     get_user_agent,
@@ -63,7 +64,7 @@ def get_yield_curve_year(year: str) -> DataFrame:
     # pylint: disable=line-too-long
     yield_curve_url = "https://www.treasury.gov/resource-center/data-chart-center/interest-rates/Pages/TextView.aspx?data=yieldYear&year={}"  # noqa: E501
     text_soup_yield_curve = BeautifulSoup(
-        requests.get(
+        safe_requests.get(
             yield_curve_url.format(year),
             headers={"User-Agent": get_user_agent()},
         ).text,

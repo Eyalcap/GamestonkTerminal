@@ -1,8 +1,9 @@
 """Eclect.us model"""
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 from collections import OrderedDict
-import requests
 from colorama import Style
 
 # pylint: disable=R1718
@@ -22,7 +23,7 @@ def get_filings_analysis(ticker: str) -> str:
         Analysis of filings text
     """
 
-    response = requests.get(f"https://api.eclect.us/symbol/{ticker.lower()}?page=1")
+    response = safe_requests.get(f"https://api.eclect.us/symbol/{ticker.lower()}?page=1")
 
     if response.status_code != 200:
         filings_analysis = ""

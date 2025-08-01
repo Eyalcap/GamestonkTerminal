@@ -1,8 +1,9 @@
 """ Fidelity Model """
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 from typing import Tuple
-import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from pandas.core.frame import DataFrame
@@ -25,7 +26,7 @@ def get_orders() -> Tuple[str, DataFrame]:
     )
 
     text_soup_url_orders = BeautifulSoup(
-        requests.get(url_orders, headers={"User-Agent": get_user_agent()}).text, "lxml"
+        safe_requests.get(url_orders, headers={"User-Agent": get_user_agent()}).text, "lxml"
     )
 
     l_orders = []

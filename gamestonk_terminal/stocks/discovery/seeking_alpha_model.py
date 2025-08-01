@@ -1,8 +1,9 @@
 """ Seeking Alpha Model """
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 from typing import List, Dict
-import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from pandas.core.frame import DataFrame
@@ -23,7 +24,7 @@ def get_earnings_html(url_next_earnings: str) -> str:
     str
         HTML page of next earnings
     """
-    earnings_html = requests.get(
+    earnings_html = safe_requests.get(
         url_next_earnings, headers={"User-Agent": get_user_agent()}
     ).text
 
@@ -82,7 +83,7 @@ def get_articles_html(url_articles: str) -> str:
     str
         HTML page of articles
     """
-    articles_html = requests.get(
+    articles_html = safe_requests.get(
         url_articles, headers={"User-Agent": get_user_agent()}
     ).text
 
@@ -105,7 +106,7 @@ def get_trending_list(num: int) -> list:
 
     articles = []
     url_articles = "https://seekingalpha.com/news/trending_news"
-    response = requests.get(url_articles, headers={"User-Agent": get_user_agent()})
+    response = safe_requests.get(url_articles, headers={"User-Agent": get_user_agent()})
 
     # Check that the API response was successful
     if response.status_code != 200:
@@ -143,7 +144,7 @@ def get_article_data(article_id: int) -> dict:
     """
 
     article_url = f"https://seekingalpha.com/api/v3/news/{article_id}"
-    response = requests.get(article_url, headers={"User-Agent": get_user_agent()})
+    response = safe_requests.get(article_url, headers={"User-Agent": get_user_agent()})
     jdata = response.json()
     content = jdata["data"]["attributes"]["content"].replace("</li>", "</li>\n")
     content = BeautifulSoup(content, features="html.parser").get_text()
@@ -178,7 +179,7 @@ def get_news_html(news_type: str = "Top-News") -> dict:
         "&isMounting=true&page%5Bsize%5D=25&page%5Bnumber%5D=1"
     )
 
-    articles_html = requests.get(
+    articles_html = safe_requests.get(
         sa_url, headers={"User-Agent": get_user_agent()}
     ).json()
 

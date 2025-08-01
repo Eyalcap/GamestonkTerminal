@@ -1,7 +1,8 @@
 """WSJ model"""
+from security import safe_requests
+
 __docformat__ = "numpy"
 import pandas as pd
-import requests
 from gamestonk_terminal.helper_funcs import get_user_agent
 
 
@@ -35,7 +36,7 @@ def etf_movers(sort_type: str = "gainers") -> pd.DataFrame:
             "%22%3A%22WSJ%22%2C%22etfMover%22%3A%22most_active%22%2C%22count%22%3A25%7D&type=mdc_etfmovers"
         )
 
-    data = requests.get(url, headers={"User-Agent": get_user_agent()}).json()
+    data = safe_requests.get(url, headers={"User-Agent": get_user_agent()}).json()
     name, last_price, net_change, percent_change, volume = [], [], [], [], []
 
     for entry in data["data"]["instruments"]:

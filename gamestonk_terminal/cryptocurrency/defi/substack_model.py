@@ -1,10 +1,11 @@
 """Substack model"""
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 import textwrap
 import concurrent.futures
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 from dateutil import parser
 
@@ -24,7 +25,7 @@ def scrape_substack(url: str) -> list:
         list of news from given newsletter
     """
 
-    req = requests.get(url)
+    req = safe_requests.get(url)
     soup = BeautifulSoup(req.text, features="lxml")
     results = []
     posts = soup.find("div", class_="portable-archive-list").find_all(

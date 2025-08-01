@@ -1,4 +1,6 @@
 """Stocktwits Model"""
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 from typing import Tuple, List, Dict
@@ -26,7 +28,7 @@ def get_bullbear(ticker: str) -> Tuple[int, int, int, int]:
     int
         Number of bearish statements
     """
-    result = requests.get(
+    result = safe_requests.get(
         f"https://api.stocktwits.com/api/2/streams/symbol/{ticker}.json"
     )
     if result.status_code == 200:
@@ -59,7 +61,7 @@ def get_messages(ticker: str, limit: int = 30) -> List[str]:
     List[str]
         List of messages
     """
-    result = requests.get(
+    result = safe_requests.get(
         f"https://api.stocktwits.com/api/2/streams/symbol/{ticker}.json"
     )
     messages = []
@@ -105,7 +107,7 @@ def get_stalker(user: str, limit: int = 30) -> List[Dict]:
     limit : int, optional
         Number of posts to get, by default 30
     """
-    result = requests.get(f"https://api.stocktwits.com/api/2/streams/user/{user}.json")
+    result = safe_requests.get(f"https://api.stocktwits.com/api/2/streams/user/{user}.json")
     if result.status_code == 200:
         messages = []
         for idx, message in enumerate(result.json()["messages"]):

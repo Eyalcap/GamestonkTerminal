@@ -1,10 +1,11 @@
 """ Business Insider Model """
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 import json
 import re
 from typing import Tuple
-import requests
 import pandas as pd
 from bs4 import BeautifulSoup
 from gamestonk_terminal.helper_funcs import (
@@ -29,7 +30,7 @@ def get_price_target_from_analysts(ticker: str) -> pd.DataFrame:
         f"https://markets.businessinsider.com/stocks/{ticker.lower()}-stock"
     )
     text_soup_market_business_insider = BeautifulSoup(
-        requests.get(
+        safe_requests.get(
             url_market_business_insider, headers={"User-Agent": get_user_agent()}
         ).text,
         "lxml",
@@ -80,7 +81,7 @@ def get_estimates(ticker: str) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame
         f"https://markets.businessinsider.com/stocks/{ticker.lower()}-stock"
     )
     text_soup_market_business_insider = BeautifulSoup(
-        requests.get(
+        safe_requests.get(
             url_market_business_insider, headers={"User-Agent": get_user_agent()}
         ).text,
         "lxml",

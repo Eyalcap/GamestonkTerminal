@@ -1,7 +1,7 @@
 """ Market Watch Model """
-__docformat__ = "numpy"
+from security import safe_requests
 
-import requests
+__docformat__ = "numpy"
 import pandas as pd
 from bs4 import BeautifulSoup
 from gamestonk_terminal.helper_funcs import get_user_agent
@@ -30,7 +30,7 @@ def get_sec_filings(ticker: str) -> pd.DataFrame:
     )
 
     text_soup_financials = BeautifulSoup(
-        requests.get(url_financials, headers={"User-Agent": get_user_agent()}).text,
+        safe_requests.get(url_financials, headers={"User-Agent": get_user_agent()}).text,
         "lxml",
     )
 

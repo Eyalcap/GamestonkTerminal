@@ -1,4 +1,6 @@
 """Terminal helper"""
+from security import safe_requests
+
 __docformat__ = "numpy"
 import hashlib
 import logging
@@ -49,7 +51,7 @@ def check_api_keys():
     if cfg.API_KEY_FINANCIALMODELINGPREP == "REPLACE_ME":  # pragma: allowlist secret
         key_dict["FINANCIAL_MODELING_PREP"] = "Not defined"
     else:
-        r = requests.get(
+        r = safe_requests.get(
             f"https://financialmodelingprep.com/api/v3/profile/AAPL?apikey={cfg.API_KEY_FINANCIALMODELINGPREP}"
         )
         if r.status_code in [403, 401]:
@@ -78,7 +80,7 @@ def check_api_keys():
     if cfg.API_POLYGON_KEY == "REPLACE_ME":
         key_dict["POLYGON"] = "Not defined"
     else:
-        r = requests.get(
+        r = safe_requests.get(
             f"https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/2020-06-01/2020-06-17?apiKey={cfg.API_POLYGON_KEY}"
         )
         if r.status_code in [403, 401]:
@@ -91,7 +93,7 @@ def check_api_keys():
     if cfg.API_FRED_KEY == "REPLACE_ME":
         key_dict["FRED"] = "Not defined"
     else:
-        r = requests.get(
+        r = safe_requests.get(
             f"https://api.stlouisfed.org/fred/series?series_id=GNPCA&api_key={cfg.API_FRED_KEY}"
         )
         if r.status_code in [403, 401, 400]:
@@ -104,7 +106,7 @@ def check_api_keys():
     if cfg.API_NEWS_TOKEN == "REPLACE_ME":
         key_dict["NEWSAPI"] = "Not defined"
     else:
-        r = requests.get(
+        r = safe_requests.get(
             f"https://newsapi.org/v2/everything?q=keyword&apiKey={cfg.API_NEWS_TOKEN}"
         )
         if r.status_code in [401, 403]:
@@ -117,7 +119,7 @@ def check_api_keys():
     if cfg.TRADIER_TOKEN == "REPLACE_ME":
         key_dict["TRADIER"] = "Not defined"
     else:
-        r = requests.get(
+        r = safe_requests.get(
             "https://sandbox.tradier.com/v1/markets/quotes",
             params={"symbols": "AAPL"},
             headers={
@@ -145,7 +147,7 @@ def check_api_keys():
     if cfg.API_FINNHUB_KEY == "REPLACE_ME":
         key_dict["FINNHUB"] = "Not defined"
     else:
-        r = r = requests.get(
+        r = r = safe_requests.get(
             f"https://finnhub.io/api/v1/quote?symbol=AAPL&token={cfg.API_FINNHUB_KEY}"
         )
         if r.status_code in [403, 401, 400]:
@@ -203,7 +205,7 @@ def check_api_keys():
             "max_results": "10",
             "tweet.fields": "created_at,lang",
         }
-        r = requests.get(
+        r = safe_requests.get(
             "https://api.twitter.com/2/tweets/search/recent",
             params=params,  # type: ignore
             headers={"authorization": "Bearer " + cfg.API_TWITTER_BEARER_TOKEN},
@@ -265,7 +267,7 @@ def check_api_keys():
     if "REPLACE_ME" in si_keys:
         key_dict["SENTIMENT_INVESTOR"] = "Not defined"
     else:
-        account = requests.get(
+        account = safe_requests.get(
             f"https://api.sentimentinvestor.com/v4/account"
             f"?token={cfg.API_SENTIMENTINVESTOR_TOKEN}&key={cfg.API_SENTIMENTINVESTOR_KEY}"
         )

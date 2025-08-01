@@ -1,10 +1,11 @@
 """Twitter Model"""
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 from typing import Optional
 
 import pandas as pd
-import requests
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 from gamestonk_terminal import config_terminal as cfg
@@ -50,7 +51,7 @@ def load_analyze_tweets(
         params["end_time"] = end_time
 
     # Request Twitter API
-    response = requests.get(
+    response = safe_requests.get(
         "https://api.twitter.com/2/tweets/search/recent",
         params=params,  # type: ignore
         headers={"authorization": "Bearer " + cfg.API_TWITTER_BEARER_TOKEN},

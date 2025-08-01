@@ -1,7 +1,7 @@
 """ Business Insider Model """
-__docformat__ = "numpy"
+from security import safe_requests
 
-import requests
+__docformat__ = "numpy"
 import pandas as pd
 from bs4 import BeautifulSoup
 from gamestonk_terminal.helper_funcs import get_user_agent
@@ -24,7 +24,7 @@ def get_insider_activity(ticker: str) -> pd.DataFrame:
         f"https://markets.businessinsider.com/stocks/{ticker.lower()}-stock"
     )
     text_soup_market_business_insider = BeautifulSoup(
-        requests.get(
+        safe_requests.get(
             url_market_business_insider, headers={"User-Agent": get_user_agent()}
         ).text,
         "lxml",

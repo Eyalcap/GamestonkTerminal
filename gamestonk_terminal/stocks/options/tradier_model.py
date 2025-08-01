@@ -1,4 +1,6 @@
 """Tradier options model"""
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 from typing import List, Optional
@@ -72,7 +74,7 @@ def get_historical_options(
     else:
         symbol = chain_id
 
-    response = requests.get(
+    response = safe_requests.get(
         "https://sandbox.tradier.com/v1/markets/history",
         params={"symbol": {symbol}, "interval": "daily"},
         headers={
@@ -113,7 +115,7 @@ def option_expirations(ticker: str) -> List[str]:
     dates: List[str]
         List of of available expirations
     """
-    r = requests.get(
+    r = safe_requests.get(
         "https://sandbox.tradier.com/v1/markets/options/expirations",
         params={"symbol": ticker, "includeAllRoots": "true", "strikes": "false"},
         headers={
@@ -155,7 +157,7 @@ def get_option_chains(symbol: str, expiry: str) -> pd.DataFrame:
         "Accept": "application/json",
     }
 
-    response = requests.get(
+    response = safe_requests.get(
         "https://sandbox.tradier.com/v1/markets/options/chains",
         params=params,
         headers=headers,
@@ -220,7 +222,7 @@ def last_price(ticker: str):
     float:
         Last price
     """
-    r = requests.get(
+    r = safe_requests.get(
         "https://sandbox.tradier.com/v1/markets/quotes",
         params={"symbols": ticker, "includeAllRoots": "true", "strikes": "false"},
         headers={

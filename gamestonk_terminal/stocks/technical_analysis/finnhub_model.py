@@ -1,7 +1,7 @@
 """Finnhub model"""
-__docformat__ = "numpy"
+from security import safe_requests
 
-import requests
+__docformat__ = "numpy"
 import pandas as pd
 
 from gamestonk_terminal import config_terminal as cfg
@@ -23,7 +23,7 @@ def get_pattern_recognition(ticker: str, resolution: str) -> pd.DataFrame:
         Get datapoints corresponding to pattern signal data
     """
 
-    response = requests.get(
+    response = safe_requests.get(
         f"https://finnhub.io/api/v1/scan/pattern?symbol={ticker}&resolution={resolution}&token={cfg.API_FINNHUB_KEY}"
     )
 

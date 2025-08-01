@@ -1,7 +1,7 @@
 """ News View """
-__docformat__ = "numpy"
+from security import safe_requests
 
-import requests
+__docformat__ = "numpy"
 
 from gamestonk_terminal import config_terminal as cfg
 
@@ -36,7 +36,7 @@ def news(
     if sources:
         link += f"&domains={sources}"
 
-    response = requests.get(link)
+    response = safe_requests.get(link)
 
     # Check that the API response was successful
     if response.status_code == 426:

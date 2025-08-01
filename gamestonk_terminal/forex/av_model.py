@@ -4,8 +4,8 @@ import argparse
 from typing import Dict, List
 import os
 import pandas as pd
-import requests
 from gamestonk_terminal import config_terminal as cfg
+from security import safe_requests
 
 
 def get_currency_list() -> List:
@@ -64,7 +64,7 @@ def get_quote(to_symbol: str, from_symbol: str) -> Dict:
         + f"&to_currency={to_symbol}"
         + f"&apikey={cfg.API_KEY_ALPHAVANTAGE}"
     )
-    r = requests.get(url)
+    r = safe_requests.get(url)
     if r.status_code != 200:
         return {}
     return r.json()
@@ -104,7 +104,7 @@ def get_historical(
     if resolution == "i":
         url += f"&interval={interval}min"
 
-    r = requests.get(url)
+    r = safe_requests.get(url)
     if r.status_code != 200:
         return pd.DataFrame()
 

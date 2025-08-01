@@ -1,11 +1,12 @@
 """Stockanalysis.com/etf Model"""
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 from typing import List, Tuple
 import json
 
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup as bs
 from gamestonk_terminal.helper_funcs import get_user_agent
 
@@ -20,7 +21,7 @@ def get_all_names_symbols() -> Tuple[List[str], List[str]]:
     etf_names: List[str]
         List of all available etf names
     """
-    r = requests.get(
+    r = safe_requests.get(
         "https://stockanalysis.com/etf/", headers={"User-Agent": get_user_agent()}
     )
     soup2 = bs(r.text, "html.parser")
@@ -44,7 +45,7 @@ def get_etf_overview(etf_symbol: str) -> pd.DataFrame:
     df : pd.DataFrame
         Dataframe of stock overview data
     """
-    r = requests.get(
+    r = safe_requests.get(
         f"https://stockanalysis.com/etf/{etf_symbol}",
         headers={"User-Agent": get_user_agent()},
     )
@@ -79,7 +80,7 @@ def get_etf_holdings(symbol: str) -> pd.DataFrame:
     """
 
     link = f"https://stockanalysis.com/etf/{symbol}/holdings/"
-    r = requests.get(link, headers={"User-Agent": get_user_agent()})
+    r = safe_requests.get(link, headers={"User-Agent": get_user_agent()})
     if r.status_code == 200:
         soup = bs(r.text, "html.parser")
         soup = soup.find("table")

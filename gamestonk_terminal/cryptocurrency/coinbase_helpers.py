@@ -1,4 +1,6 @@
 """Coinbase helpers model"""
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 import argparse
@@ -9,7 +11,6 @@ import hmac
 import hashlib
 import time
 import base64
-import requests
 from requests.auth import AuthBase
 import gamestonk_terminal.config_terminal as cfg
 
@@ -114,7 +115,7 @@ def make_coinbase_request(
     """
 
     url = "https://api.pro.coinbase.com"
-    response = requests.get(url + endpoint, params=params, auth=auth)
+    response = safe_requests.get(url + endpoint, params=params, auth=auth)
 
     if not 200 <= response.status_code < 300:
         raise CoinbaseApiException(f"Invalid Authentication: {response.text}")

@@ -1,4 +1,6 @@
 """ Fundamental Analysis Market Watch Model """
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 import re
@@ -6,7 +8,6 @@ from typing import List, Tuple
 
 import numpy as np
 import pandas as pd
-import requests
 from bs4 import BeautifulSoup
 from gamestonk_terminal.helper_funcs import (
     clean_data_values_to_float,
@@ -63,7 +64,7 @@ def prepare_df_financials(
         period = "annual"
 
     text_soup_financials = BeautifulSoup(
-        requests.get(
+        safe_requests.get(
             financial_urls[statement][period].format(ticker),
             headers={"User-Agent": get_user_agent()},
         ).text,
@@ -146,7 +147,7 @@ def get_sean_seah_warnings(
         f"https://www.marketwatch.com/investing/stock/{ticker}/financials/income"
     )
     text_soup_financials = BeautifulSoup(
-        requests.get(url_financials, headers={"User-Agent": get_user_agent()}).text,
+        safe_requests.get(url_financials, headers={"User-Agent": get_user_agent()}).text,
         "lxml",
     )
 
@@ -192,7 +193,7 @@ def get_sean_seah_warnings(
         f"https://www.marketwatch.com/investing/stock/{ticker}/financials/balance-sheet"
     )
     text_soup_financials = BeautifulSoup(
-        requests.get(url_financials, headers={"User-Agent": get_user_agent()}).text,
+        safe_requests.get(url_financials, headers={"User-Agent": get_user_agent()}).text,
         "lxml",
     )
 
