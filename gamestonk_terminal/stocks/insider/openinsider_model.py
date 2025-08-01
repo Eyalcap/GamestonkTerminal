@@ -2,9 +2,9 @@ from datetime import datetime
 from typing import Dict, List
 import os
 import configparser
-import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+from security import safe_requests
 
 presets_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "presets/")
 
@@ -1240,7 +1240,7 @@ def get_open_insider_data(url: str, has_company_name: bool) -> pd.DataFrame:
     data : pd.DataFrame
         open insider filtered data
     """
-    text_soup_open_insider = BeautifulSoup(requests.get(url).text, "lxml")
+    text_soup_open_insider = BeautifulSoup(safe_requests.get(url).text, "lxml")
 
     if len(text_soup_open_insider.find_all("tbody")) == 0:
         print("No insider trading found.")

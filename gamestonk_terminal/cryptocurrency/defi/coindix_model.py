@@ -1,9 +1,9 @@
 """Coindix model"""
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 from typing import Optional
-
-import requests
 import pandas as pd
 
 VAULTS_FILTERS = ["name", "chain", "protocol", "apy", "tvl", "risk", "link"]
@@ -136,7 +136,7 @@ def get_defi_vaults(
     """
 
     params = _prepare_params(chain=chain, protocol=protocol, kind=kind)
-    response = requests.get("https://apiv2.coindix.com/search", params=params)
+    response = safe_requests.get("https://apiv2.coindix.com/search", params=params)
     if not 200 <= response.status_code < 300:
         raise Exception(f"Coindix api exception: {response.text}")
 

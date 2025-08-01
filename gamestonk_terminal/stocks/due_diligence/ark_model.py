@@ -1,8 +1,9 @@
 """Ark Model"""
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 import json
-import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import yfinance as yf
@@ -23,7 +24,7 @@ def get_ark_trades_by_ticker(ticker: str) -> pd.DataFrame:
         DataFrame of trades
     """
     url = f"https://cathiesark.com/ark-combined-holdings-of-{ticker}"
-    r = requests.get(url, headers={"User-Agent": get_user_agent()})
+    r = safe_requests.get(url, headers={"User-Agent": get_user_agent()})
     # Error in request
     if r.status_code != 200:
         return pd.DataFrame()

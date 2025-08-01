@@ -1,7 +1,7 @@
 """Tradingview model"""
-__docformat__ = "numpy"
+from security import safe_requests
 
-import requests
+__docformat__ = "numpy"
 from tradingview_ta import TA_Handler
 import pandas as pd
 
@@ -45,7 +45,7 @@ def get_tradingview_recommendation(
 
     if not exchange:
         s_req = f"https://www.alphavantage.co/query?function=OVERVIEW&symbol={ticker}&apikey={cfg.API_KEY_ALPHAVANTAGE}"
-        result = requests.get(s_req, stream=True)
+        result = safe_requests.get(s_req, stream=True)
         exchange = result.json()["Exchange"]
 
     if interval:

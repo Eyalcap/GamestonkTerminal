@@ -1,6 +1,6 @@
-import requests
 import pandas as pd
 from gamestonk_terminal import config_terminal as cfg
+from security import safe_requests
 
 
 def get_ipo_calendar(from_date: str, to_date: str) -> pd.DataFrame:
@@ -18,7 +18,7 @@ def get_ipo_calendar(from_date: str, to_date: str) -> pd.DataFrame:
     pd.DataFrame
         Get dataframe with economic calendar events
     """
-    response = requests.get(
+    response = safe_requests.get(
         f"https://finnhub.io/api/v1/calendar/ipo?from={from_date}&to={to_date}&token={cfg.API_FINNHUB_KEY}"
     )
     if response.status_code == 200:

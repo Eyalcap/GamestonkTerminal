@@ -2,7 +2,6 @@ import os
 import textwrap
 import itertools
 from bs4 import BeautifulSoup
-import requests
 import numpy as np
 import pandas as pd
 from tabulate import tabulate
@@ -16,6 +15,7 @@ from gamestonk_terminal.stocks.insider.openinsider_model import (
     get_open_insider_data,
 )
 from gamestonk_terminal import feature_flags as gtff
+from security import safe_requests
 
 d_open_insider = {
     "lcb": "latest-cluster-buys",
@@ -134,7 +134,7 @@ def print_insider_data(type_insider: str, limit: int = 10, export: str = ""):
     export: str
         Export data format
     """
-    response = requests.get(f"http://openinsider.com/{d_open_insider[type_insider]}")
+    response = safe_requests.get(f"http://openinsider.com/{d_open_insider[type_insider]}")
     soup = BeautifulSoup(response.text, "html.parser")
     table = soup.find("table", {"class": "tinytable"})
 

@@ -1,11 +1,11 @@
 """ Thought of The Day """
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 import random
 import re
 from typing import Dict
-
-import requests
 from bs4 import BeautifulSoup
 
 from gamestonk_terminal.helper_funcs import get_user_agent
@@ -52,7 +52,7 @@ class ThoughtOfTheDay:
             Metadata dictionary that includes number of quotes, number of pages and first 30 quotes
         """
         quotes_page = BeautifulSoup(
-            requests.get(
+            safe_requests.get(
                 self.urls[author],
                 headers={"User-Agent": get_user_agent()},
             ).text,

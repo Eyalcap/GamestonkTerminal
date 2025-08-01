@@ -1,8 +1,8 @@
 """ opensea.io Model """
 
 from datetime import datetime
-import requests
 import pandas as pd
+from security import safe_requests
 
 API_URL = "https://api.opensea.io/api/v1"
 
@@ -20,7 +20,7 @@ def get_collection_stats(slug: str) -> pd.DataFrame:
     pd.DataFrame
         collection stats
     """
-    res = requests.get(f"{API_URL}/collection/{slug}")
+    res = safe_requests.get(f"{API_URL}/collection/{slug}")
     if res.status_code == 200:
         data = res.json()
         collection = data["collection"]

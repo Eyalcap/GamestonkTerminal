@@ -1,9 +1,10 @@
 """ ARK Model """
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 from datetime import timedelta
 import json
-import requests
 from bs4 import BeautifulSoup
 import numpy as np
 import pandas as pd
@@ -24,7 +25,7 @@ def get_ark_orders() -> DataFrame:
     """
     url_orders = "https://cathiesark.com/ark-funds-combined/trades"
 
-    raw_page = requests.get(url_orders, headers={"User-Agent": get_user_agent()}).text
+    raw_page = safe_requests.get(url_orders, headers={"User-Agent": get_user_agent()}).text
 
     parsed_script = BeautifulSoup(raw_page, "lxml").find(
         "script", {"id": "__NEXT_DATA__"}

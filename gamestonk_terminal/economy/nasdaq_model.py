@@ -1,4 +1,6 @@
 """NASDAQ Data Link Model"""
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 import argparse
@@ -6,7 +8,6 @@ import os
 from typing import List
 
 import pandas as pd
-import requests
 from gamestonk_terminal.config_terminal import API_KEY_QUANDL
 
 
@@ -39,7 +40,7 @@ def get_big_mac_index(country_code: str) -> pd.DataFrame:
     pd.DataFrame
         Dataframe with Big Mac index converted to USD equivalent.
     """
-    r = requests.get(
+    r = safe_requests.get(
         f"https://data.nasdaq.com/api/v3/datasets/ECONOMIST/BIGMAC_{country_code}?column_index=3&api_key={API_KEY_QUANDL}"
     )
     if r.status_code != 200:

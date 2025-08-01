@@ -1,7 +1,7 @@
 """ Short Interest View """
-__docformat__ = "numpy"
+from security import safe_requests
 
-import requests
+__docformat__ = "numpy"
 from bs4 import BeautifulSoup
 import pandas as pd
 from pandas.core.frame import DataFrame
@@ -21,7 +21,7 @@ def get_high_short_interest() -> DataFrame:
     url_high_short_interested_stocks = "https://www.highshortinterest.com"
 
     text_soup_high_short_interested_stocks = BeautifulSoup(
-        requests.get(
+        safe_requests.get(
             url_high_short_interested_stocks, headers={"User-Agent": get_user_agent()}
         ).text,
         "lxml",

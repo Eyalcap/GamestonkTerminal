@@ -1,4 +1,6 @@
 """ Stockgrid View """
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 from typing import List, Tuple
@@ -42,7 +44,7 @@ def get_dark_pool_short_positions(sort_field: str, ascending: bool) -> pd.DataFr
 
     link = f"https://stockgridapp.herokuapp.com/get_dark_pool_data?top={field}&minmax={order}"
 
-    response = requests.get(link)
+    response = safe_requests.get(link)
     df = pd.DataFrame(response.json()["data"])
 
     df = df[
@@ -111,7 +113,7 @@ def get_short_interest_volume(ticker: str) -> Tuple[pd.DataFrame, List]:
         Price data
     """
     link = f"https://stockgridapp.herokuapp.com/get_dark_pool_individual_data?ticker={ticker}"
-    response = requests.get(link)
+    response = safe_requests.get(link)
 
     df = pd.DataFrame(response.json()["individual_short_volume_table"]["data"])
     df["date"] = pd.to_datetime(df["date"])
@@ -133,7 +135,7 @@ def get_net_short_position(ticker: str) -> pd.DataFrame:
         Net short position
     """
     link = f"https://stockgridapp.herokuapp.com/get_dark_pool_individual_data?ticker={ticker}"
-    response = requests.get(link)
+    response = safe_requests.get(link)
 
     df = pd.DataFrame(response.json()["individual_dark_pool_position_data"])
     df["dates"] = pd.to_datetime(df["dates"])

@@ -1,8 +1,9 @@
 """FinBrain Model"""
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 import pandas as pd
-import requests
 
 
 def get_sentiment(ticker: str) -> pd.DataFrame:
@@ -18,7 +19,7 @@ def get_sentiment(ticker: str) -> pd.DataFrame:
     DataFrame()
         Empty if there was an issue with data retrieval
     """
-    result = requests.get(f"https://api.finbrain.tech/v0/sentiments/{ticker}")
+    result = safe_requests.get(f"https://api.finbrain.tech/v0/sentiments/{ticker}")
     sentiment = pd.DataFrame()
     if result.status_code == 200:
         if "sentimentAnalysis" in result.json():

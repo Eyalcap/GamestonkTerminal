@@ -1,4 +1,6 @@
 """Cryptopanic model"""
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 import time
@@ -6,7 +8,6 @@ import math
 import textwrap
 from typing import Optional, Any
 import pandas as pd
-import requests
 
 
 import gamestonk_terminal.config_terminal as cfg
@@ -84,7 +85,7 @@ def make_request(**kwargs: Any) -> dict:
     if region and region in REGIONS:
         url += f"&regions={region}"
 
-    response = requests.get(url)
+    response = safe_requests.get(url)
 
     if not 200 <= response.status_code < 300:
         raise ApiKeyException(f"Invalid Authentication: {response.text}")
@@ -168,7 +169,7 @@ def get_news(
         counter += 1
         try:
             time.sleep(0.2)
-            res = requests.get(next_page).json()
+            res = safe_requests.get(next_page).json()
             for post in res["results"]:
                 results.append(_parse_post(post))
             next_page = res.get("next")

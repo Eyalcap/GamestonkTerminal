@@ -1,7 +1,8 @@
 """WSJ model"""
+from security import safe_requests
+
 __docformat__ = "numpy"
 import pandas as pd
-import requests
 from gamestonk_terminal.helper_funcs import get_user_agent
 
 
@@ -13,7 +14,7 @@ def us_indices() -> pd.DataFrame:
     indices: pd.DataFrame
         Dataframe containing name, price, net change and percent change
     """
-    data = requests.get(
+    data = safe_requests.get(
         "https://www.wsj.com/market-data/stocks?id=%7B%22application%22%3A%22WSJ%22%2C%22instruments%22%3A%5B%7B"
         "%22symbol%22%3A%22INDEX%2FUS%2F%2FDJIA%22%2C%22name%22%3A%22DJIA%22%7D%2C%7B%22symbol%22%3A%22INDEX%2FUS%2F"
         "%2FCOMP%22%2C%22name%22%3A%22Nasdaq%20Composite%22%7D%2C%7B%22symbol%22%3A%22INDEX%2FUS%2F%2FSPX%22%2C%22name"
@@ -50,7 +51,7 @@ def market_overview() -> pd.DataFrame:
     overview: pd.DataFrame
         Dataframe containing name, price, net change and percent change
     """
-    data = requests.get(
+    data = safe_requests.get(
         "https://www.wsj.com/market-data?id=%7B%22application%22%3A%22WSJ%22%2C%22instruments%22%3A%5B%7B%22symbol%22"
         "%3A%22INDEX%2FUS%2F%2FDJIA%22%2C%22name%22%3A%22DJIA%22%7D%2C%7B%22symbol%22%3A%22INDEX%2FUS%2F%2FSPX%22%2C%22"
         "name%22%3A%22S%26P%20500%22%7D%2C%7B%22symbol%22%3A%22INDEX%2FUS%2F%2FCOMP%22%2C%22name%22%3A%22Nasdaq%20"
@@ -85,7 +86,7 @@ def top_commodities() -> pd.DataFrame:
     commodities: pd.DataFrame
         Dataframe containing name, price, net change and percent change
     """
-    data = requests.get(
+    data = safe_requests.get(
         "https://www.wsj.com/market-data/commodities?id=%7B%22application%22%3A%22WSJ%22%2C%22instruments%22%3A%5B%7"
         "B%22symbol%22%3A%22FUTURE%2FUS%2F%2FCRUDE%20OIL%20-%20ELECTRONIC%22%2C%22name%22%3A%22Crude%20Oil%20Futures"
         "%22%7D%2C%7B%22symbol%22%3A%22FUTURE%2FUK%2F%2FBRENT%20CRUDE%22%2C%22name%22%3A%22Brent%20Crude%20Futures%22"
@@ -122,7 +123,7 @@ def us_bonds() -> pd.DataFrame:
         Dataframe containing name, coupon rate, yield and change in yield
     """
 
-    data = requests.get(
+    data = safe_requests.get(
         "https://www.wsj.com/market-data?id=%7B%22application%22%3A%22WSJ%22%2C%22instruments%22%3A%5B"
         "%7B%22symbol%22%3A%22BOND%2FBX%2F%2FTMUBMUSD30Y%22%2C%22name%22%3A%2230-Year%20Bond%22%7D%2C%7"
         "B%22symbol%22%3A%22BOND%2FBX%2F%2FTMUBMUSD10Y%22%2C%22name%22%3A%2210-Year%20Note%22%7D%2C%7B%2"
@@ -158,7 +159,7 @@ def global_bonds() -> pd.DataFrame:
     bonds: pd.DataFrame
         Dataframe containing name, coupon rate, yield and change in yield
     """
-    data = requests.get(
+    data = safe_requests.get(
         "https://www.wsj.com/market-data?id=%7B%22application%22%3A%22WSJ%22%2C%22bonds%22%3A%5"
         "B%7B%22symbol%22%3A%22TMUBMUSD10Y%22%2C%22name%22%3A%22U.S.%2010%20Year%22%7D%2C%7B%22symbol"
         "%22%3A%22TMBMKDE-10Y%22%2C%22name%22%3A%22Germany%2010%20Year%22%7D%2C%7B%22symbol%22%3A%22TMB"
@@ -190,7 +191,7 @@ def global_currencies() -> pd.DataFrame:
     currencies: pd.DataFrame
         Dataframe containing name, price, net change and percent change
     """
-    data = requests.get(
+    data = safe_requests.get(
         "https://www.wsj.com/market-data?id=%7B%22application%22%3A%22WSJ%22%2C%22instruments%22%3A%5"
         "B%7B%22symbol%22%3A%22CURRENCY%2FUS%2F%2FEURUSD%22%2C%22name%22%3A%22Euro%20(EUR%2FUSD)%22%7D%"
         "2C%7B%22symbol%22%3A%22CURRENCY%2FUS%2F%2FUSDJPY%22%2C%22name%22%3A%22Japanese%20Yen%20(USD%2F"

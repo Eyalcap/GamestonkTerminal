@@ -1,13 +1,13 @@
 import discord
 import numpy as np
 import pandas as pd
-import requests
 from tabulate import tabulate
 
 from gamestonk_terminal.helper_funcs import get_user_agent
 
 import discordbot.config_discordbot as cfg
 from discordbot.run_discordbot import logger
+from security import safe_requests
 
 
 async def unu_command(ctx, num: int = None):
@@ -26,7 +26,7 @@ async def unu_command(ctx, num: int = None):
         data_list = []
         for page_num in pages:
 
-            r = requests.get(
+            r = safe_requests.get(
                 f"https://app.fdscanner.com/api2/unusualvolume?p=0&page_size=20&page={int(page_num)}",
                 headers={"User-Agent": get_user_agent()},
             )

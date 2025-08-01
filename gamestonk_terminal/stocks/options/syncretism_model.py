@@ -1,11 +1,12 @@
 """ops.syncretism.io model"""
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 import configparser
 from typing import Tuple
 
 import pandas as pd
-import requests
 import yfinance as yf
 
 from gamestonk_terminal.stocks.options import yfinance_model
@@ -60,7 +61,7 @@ def get_historical_greeks(
 
         chain_id = options.loc[options.strike == strike, "contractSymbol"].values[0]
 
-    r = requests.get(f"https://api.syncretism.io/ops/historical/{chain_id}")
+    r = safe_requests.get(f"https://api.syncretism.io/ops/historical/{chain_id}")
 
     if r.status_code != 200:
         print("Error in request.")
@@ -168,7 +169,7 @@ def get_screener_output(preset: str, presets_path: str) -> Tuple[pd.DataFrame, s
 
     link = "https://api.syncretism.io/ops"
 
-    res = requests.get(
+    res = safe_requests.get(
         link, headers={"Content-type": "application/json"}, data=s_filters
     )
 

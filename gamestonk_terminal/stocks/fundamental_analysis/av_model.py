@@ -1,9 +1,9 @@
 """Alpha Vantage Model"""
+from security import safe_requests
+
 __docformat__ = "numpy"
 
 from typing import Dict, Tuple
-
-import requests
 
 from alpha_vantage.fundamentaldata import FundamentalData
 import pandas as pd
@@ -27,7 +27,7 @@ def get_overview(ticker: str) -> pd.DataFrame:
     """
     # Request OVERVIEW data from Alpha Vantage API
     s_req = f"https://www.alphavantage.co/query?function=OVERVIEW&symbol={ticker}&apikey={cfg.API_KEY_ALPHAVANTAGE}"
-    result = requests.get(s_req, stream=True)
+    result = safe_requests.get(s_req, stream=True)
 
     # If the returned data was successful
     if result.status_code == 200:
@@ -83,7 +83,7 @@ def get_key_metrics(ticker: str) -> pd.DataFrame:
     """
     # Request OVERVIEW data
     s_req = f"https://www.alphavantage.co/query?function=OVERVIEW&symbol={ticker}&apikey={cfg.API_KEY_ALPHAVANTAGE}"
-    result = requests.get(s_req, stream=True)
+    result = safe_requests.get(s_req, stream=True)
 
     # If the returned data was successful
     if result.status_code == 200:
@@ -140,7 +140,7 @@ def get_income_statements(
         Dataframe of income statements
     """
     url = f"https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol={ticker}&apikey={cfg.API_KEY_ALPHAVANTAGE}"
-    r = requests.get(url)
+    r = safe_requests.get(url)
     if r.status_code == 200:
         statements = r.json()
         df_fa = pd.DataFrame()
@@ -181,7 +181,7 @@ def get_balance_sheet(
         Dataframe of income statements
     """
     url = f"https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol={ticker}&apikey={cfg.API_KEY_ALPHAVANTAGE}"
-    r = requests.get(url)
+    r = safe_requests.get(url)
     if r.status_code == 200:
         statements = r.json()
         df_fa = pd.DataFrame()
@@ -220,7 +220,7 @@ def get_cash_flow(ticker: str, number: int, quarterly: bool = False) -> pd.DataF
         Dataframe of income statements
     """
     url = f"https://www.alphavantage.co/query?function=CASH_FLOW&symbol={ticker}&apikey={cfg.API_KEY_ALPHAVANTAGE}"
-    r = requests.get(url)
+    r = safe_requests.get(url)
     if r.status_code == 200:
         statements = r.json()
         df_fa = pd.DataFrame()
@@ -261,7 +261,7 @@ def get_earnings(ticker: str, quarterly: bool = False) -> pd.DataFrame:
         "https://www.alphavantage.co/query?function=EARNINGS&"
         f"symbol={ticker}&apikey={cfg.API_KEY_ALPHAVANTAGE}"
     )
-    result = requests.get(s_req, stream=True)
+    result = safe_requests.get(s_req, stream=True)
 
     # If the returned data was successful
     if result.status_code == 200:
